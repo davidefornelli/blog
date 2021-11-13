@@ -1,1 +1,1 @@
-Sitemap: https://davidefornelli.github.io/blog/sitemap.xml
+Sitemap: https://davidefornelli.com/sitemap.xml
