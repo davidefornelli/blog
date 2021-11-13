@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Summarize a text with Azure Text Analytics in Python | Davide Fornelli</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Summarize a text with Azure Text Analytics in Python" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Ready to use notebook for extracting summaries from a list of strings" />
+<meta property="og:description" content="Ready to use notebook for extracting summaries from a list of strings" />
+<link rel="canonical" href="https://davidefornelli.com/jupyter/recipe/azuretextanalytics/python/2021/11/11/nb_chef_recipe_cs_summarization.html" />
+<meta property="og:url" content="https://davidefornelli.com/jupyter/recipe/azuretextanalytics/python/2021/11/11/nb_chef_recipe_cs_summarization.html" />
+<meta property="og:site_name" content="Davide Fornelli" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-11-11T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Ready to use notebook for extracting summaries from a list of strings","url":"https://davidefornelli.com/jupyter/recipe/azuretextanalytics/python/2021/11/11/nb_chef_recipe_cs_summarization.html","@type":"BlogPosting","headline":"Summarize a text with Azure Text Analytics in Python","dateModified":"2021-11-11T00:00:00-06:00","datePublished":"2021-11-11T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://davidefornelli.com/jupyter/recipe/azuretextanalytics/python/2021/11/11/nb_chef_recipe_cs_summarization.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://davidefornelli.com/feed.xml" title="Davide Fornelli" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3FB0SLT15B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3FB0SLT15B');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Davide Fornelli</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Summarize a text with Azure Text Analytics in Python</h1><p class="page-description">Ready to use notebook for extracting summaries from a list of strings</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-11-11T00:00:00-06:00" itemprop="datePublished">
+        Nov 11, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#jupyter">jupyter</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#recipe">recipe</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#azuretextanalytics">azuretextanalytics</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#python">python</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/davidefornelli/blog/tree/master/_notebooks/2021-11-11-nb_chef_recipe_cs_summarization.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/davidefornelli/blog/master?filepath=_notebooks%2F2021-11-11-nb_chef_recipe_cs_summarization.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/davidefornelli/blog/blob/master/_notebooks/2021-11-11-nb_chef_recipe_cs_summarization.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-11-11-nb_chef_recipe_cs_summarization.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Source-code">Source code<a class="anchor-link" href="#Source-code"> </a></h2><p>List of used gists.</p>
+<h3 id="Chef">Chef<a class="anchor-link" href="#Chef"> </a></h3><p><noscript><pre>400: Invalid request</pre></noscript><script src="https://gist.github.com/1bc116f05d09e598a1a2dcfbb0e2fc22.js?file=chef.py"> </script></p>
+<h3 id="Ingredients">Ingredients<a class="anchor-link" href="#Ingredients"> </a></h3><p><noscript><pre>400: Invalid request</pre></noscript><script src="https://gist.github.com/5c75b7cdea330d15dcd93adbb08648c3.js?file=az_cs_summarization.py"> </script></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Example">Example<a class="anchor-link" href="#Example"> </a></h2><p>The following example is based on specific commits:</p>
+<ul>
+<li>Chef<ul>
+<li>commit: ac2a18c678a457b59535272a8d95cdc0c58ea02c</li>
+</ul>
+</li>
+<li>Ingredients<ul>
+<li>commit: b01c0ab18d3d50d7e2836b71e22749e805fadac6</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Notebook">Notebook<a class="anchor-link" href="#Notebook"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pip</span> install httpimport
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Requirement already satisfied: httpimport in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (0.7.2)
+Note: you may need to restart the kernel to use updated packages.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># - httpimport</span>
+
+<span class="c1"># Description:</span>
+<span class="c1"># Summarize a list of texts with Azure Text Analytics</span>
+
+<span class="kn">import</span> <span class="nn">httpimport</span>
+
+<span class="c1"># GitHub username</span>
+<span class="n">gist_user</span> <span class="o">=</span> <span class="s1">&#39;Comm3&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gist_chef_id</span> <span class="o">=</span> <span class="s1">&#39;1bc116f05d09e598a1a2dcfbb0e2fc22&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gist_url_chef</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://gist.githubusercontent.com/</span><span class="si">{</span><span class="n">gist_user</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">gist_chef_id</span><span class="si">}</span><span class="s2">/raw&quot;</span>
+<span class="k">with</span> <span class="n">httpimport</span><span class="o">.</span><span class="n">remote_repo</span><span class="p">([</span><span class="s1">&#39;chef&#39;</span><span class="p">],</span> <span class="n">gist_url_chef</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">chef</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gist_ingredients_id</span> <span class="o">=</span> <span class="s1">&#39;5c75b7cdea330d15dcd93adbb08648c3&#39;</span>
+<span class="n">gist_ingredients_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://gist.githubusercontent.com/</span><span class="si">{</span><span class="n">gist_user</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">gist_ingredients_id</span><span class="si">}</span><span class="s2">/raw&quot;</span>
+
+<span class="n">chef</span><span class="o">.</span><span class="n">process_ingredients</span><span class="p">(</span>
+    <span class="n">gist_ids</span><span class="o">=</span><span class="p">[(</span><span class="n">gist_ingredients_id</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;az_cs_summarization.py&#39;</span><span class="p">])]</span>
+<span class="p">)</span>
+<span class="k">with</span> <span class="n">httpimport</span><span class="o">.</span><span class="n">remote_repo</span><span class="p">([</span><span class="s1">&#39;az_cs_summarization&#39;</span><span class="p">],</span> <span class="n">gist_ingredients_url</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">az_cs_summarization</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Requirement already satisfied: azure-ai-textanalytics==5.2.0b2 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (5.2.0b2)
+Requirement already satisfied: azure-common~=1.1 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from azure-ai-textanalytics==5.2.0b2) (1.1.27)
+Requirement already satisfied: six&gt;=1.11.0 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from azure-ai-textanalytics==5.2.0b2) (1.16.0)
+Requirement already satisfied: azure-core&lt;2.0.0,&gt;=1.19.1 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from azure-ai-textanalytics==5.2.0b2) (1.20.1)
+Requirement already satisfied: msrest&gt;=0.6.21 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from azure-ai-textanalytics==5.2.0b2) (0.6.21)
+Requirement already satisfied: requests&gt;=2.18.4 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from azure-core&lt;2.0.0,&gt;=1.19.1-&gt;azure-ai-textanalytics==5.2.0b2) (2.26.0)
+Requirement already satisfied: requests-oauthlib&gt;=0.5.0 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from msrest&gt;=0.6.21-&gt;azure-ai-textanalytics==5.2.0b2) (1.3.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from msrest&gt;=0.6.21-&gt;azure-ai-textanalytics==5.2.0b2) (2021.10.8)
+Requirement already satisfied: isodate&gt;=0.6.0 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from msrest&gt;=0.6.21-&gt;azure-ai-textanalytics==5.2.0b2) (0.6.0)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from requests&gt;=2.18.4-&gt;azure-core&lt;2.0.0,&gt;=1.19.1-&gt;azure-ai-textanalytics==5.2.0b2) (3.3)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from requests&gt;=2.18.4-&gt;azure-core&lt;2.0.0,&gt;=1.19.1-&gt;azure-ai-textanalytics==5.2.0b2) (1.26.7)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from requests&gt;=2.18.4-&gt;azure-core&lt;2.0.0,&gt;=1.19.1-&gt;azure-ai-textanalytics==5.2.0b2) (2.0.7)
+Requirement already satisfied: oauthlib&gt;=3.0.0 in /home/daforne/.pyenv/versions/3.7.9/envs/global379/lib/python3.7/site-packages (from requests-oauthlib&gt;=0.5.0-&gt;msrest&gt;=0.6.21-&gt;azure-ai-textanalytics==5.2.0b2) (3.1.1)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        A computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically. Modern computers can perform generic sets of operations known as programs. These programs enable computers to perform a wide range of tasks. A computer system is a &quot;complete&quot; computer that includes the hardware, operating system (main software), and peripheral equipment needed and used for &quot;full&quot; operation. This term may also refer to a group of computers that are linked and function together, such as a computer network or computer cluster.</span>
+<span class="sd">        A broad range of industrial and consumer products use computers as control systems. Simple special-purpose devices like microwave ovens and remote controls are included, as are factory devices like industrial robots and computer-aided design, as well as general-purpose devices like personal computers and mobile devices like smartphones. Computers power the Internet, which links hundreds of millions of other computers and users.</span>
+<span class="sd">        Early computers were meant to be used only for calculations. Simple manual instruments like the abacus have aided people in doing calculations since ancient times. Early in the Industrial Revolution, some mechanical devices were built to automate long tedious tasks, such as guiding patterns for looms. More sophisticated electrical machines did specialized analog calculations in the early 20th century. The first digital electronic calculating machines were developed during World War II. The first semiconductor transistors in the late 1940s were followed by the silicon-based MOSFET (MOS transistor) and monolithic integrated circuit (IC) chip technologies in the late 1950s, leading to the microprocessor and the microcomputer revolution in the 1970s. The speed, power and versatility of computers have been increasing dramatically ever since then, with transistor counts increasing at a rapid pace (as predicted by Moore&#39;s law), leading to the Digital Revolution during the late 20th to early 21st centuries.</span>
+<span class="sd">        Conventionally, a modern computer consists of at least one processing element, typically a central processing unit (CPU) in the form of a microprocessor, along with some type of computer memory, typically semiconductor memory chips. The processing element carries out arithmetic and logical operations, and a sequencing and control unit can change the order of operations in response to stored information. Peripheral devices include input devices (keyboards, mice, joystick, etc.), output devices (monitor screens, printers, etc.), and input/output devices that perform both functions (e.g., the 2000s-era touchscreen). Peripheral devices allow information to be retrieved from an external source and they enable the result of operations to be saved and retrieved.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">]</span>
+
+<span class="n">summary_text</span> <span class="o">=</span> <span class="n">az_cs_summarization</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span>
+    <span class="n">texts</span><span class="o">=</span><span class="n">texts</span><span class="p">,</span>
+    <span class="n">cs_endpoint</span><span class="o">=</span><span class="s1">&#39;https://westus2.api.cognitive.microsoft.com/&#39;</span><span class="p">,</span>
+    <span class="n">cs_key</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">language</span><span class="o">=</span><span class="s1">&#39;en&#39;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">summary_text</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[ExtractSummaryResult(id=0, sentences=[SummarySentence(text=A computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically., rank_score=1.0, offset=9, length=120), SummarySentence(text=These programs enable computers to perform a wide range of tasks., rank_score=0.95, offset=205, length=65), SummarySentence(text=A broad range of industrial and consumer products use computers as control systems., rank_score=0.79, offset=583, length=83)], warnings=[], statistics=None, is_error=False)]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="davidefornelli/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/jupyter/recipe/azuretextanalytics/python/2021/11/11/nb_chef_recipe_cs_summarization.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A.I. engineering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/davidefornelli" title="davidefornelli"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/davidefornelli" title="davidefornelli"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/davfornelli" title="davfornelli"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
