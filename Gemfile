@@ -24,6 +24,8 @@ group :jekyll_plugins do
   gem 'jekyll-gist'
   gem 'jekyll-paginate'
   gem 'jekyll-sitemap'
+  gem 'jekyll_github_sample'
+  gem 'jekyll-asciinema'
 end
 
 gem "kramdown-math-katex"

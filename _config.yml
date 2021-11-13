@@ -14,7 +14,7 @@ github_repo: "blog"
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
-url: "https://davidefornelli.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://davidefornelli.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 ###########################################################
 #########  Special Instructions for baseurl ###############
@@ -34,13 +34,14 @@ url: "https://davidefornelli.github.io" # the base hostname & protocol for your 
 #
 # 3. You must replace the parameter `baseurl` in _action_files/settings.ini with the same value as you set here but WITHOUT QUOTES.
 #
-baseurl: "/blog" # the subpath of your site, e.g. "/blog".
+baseurl: "" # the subpath of your site, e.g. "/blog".
 
 # Github and twitter are optional:
 minima:
   social_links:
-    twitter: fastdotai
-    github: fastai
+    github: davidefornelli
+    linkedin: davidefornelli
+    twitter: davfornelli
 
 # Set this to true to get LaTeX math equation support
 use_math: 
@@ -58,7 +59,7 @@ annotations: false
 show_tags: true
 
 # Add your Google Analytics ID here if you have one and want to use it
-google_analytics: 
+google_analytics: G-3FB0SLT15B
 
 exclude:
   - docker-compose.yml
@@ -94,6 +95,8 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jemoji
+  - jekyll_github_sample
+  - jekyll-asciinema
 
 # See https://jekyllrb.com/docs/pagination/
 # For pagination to work, you cannot have index.md at the root of your repo, instead you must rename this file to index.html
@@ -118,7 +121,7 @@ kramdown:
 
 # to limit size of xml as it can grow quite large.
 feed:
-  posts_limit: 5 #default posts_limit: 10
+  posts_limit: 10 #default posts_limit: 10
   excerpt_only: true
   
 exclude:
