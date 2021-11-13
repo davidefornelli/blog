@@ -448,7 +448,7 @@ pre code { font-size: 15px !important; }
 .code_cell table { width: auto; }
 
 /* Dracula Theme v1.2.5 https://github.com/zenorocha/dracula-theme Copyright 2016, All rights reserved Code licensed under the MIT license */
-.highlight { background: #323443 !important; color: #f8f8f2 !important; }
+.highlight { background: #323443; color: #f8f8f2 !important; }
 
 .highlight pre, .highlight code { background: #323443; color: #f8f8f2; font-size: 110%; }
 
