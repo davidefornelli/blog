@@ -1,11 +1,14 @@
 ---
 layout: page
-title: About Me
+title: About
 permalink: /about/
+image: /images/hello_friend_mod.png
+
 ---
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+![Hello friend](../images/hello_friend_mod.png)
 
+Let me introduce myself:
 
-
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+- [GitHub](https://github.com/davidefornelli)
+- [LinkedIn](https://www.linkedin.com/in/davidefornelli/)

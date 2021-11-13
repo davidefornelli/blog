@@ -72,8 +72,7 @@ $dt-green-light: rgb(172, 229, 145);
  */
 
 .highlight {
-    // background: $dt-code-cell-background !important;
-    background: $dt-code-cell-background;
+    background: $dt-code-cell-background !important;
     color: $dt-gray-light !important;
     pre, code {
      background: $dt-code-cell-background;
@@ -129,7 +128,6 @@ $dt-green-light: rgb(172, 229, 145);
     .bp {
       color: $dt-gray-light;
       background-color: $dt-code-cell-background !important;
-      // background-color: $dt-code-cell-background;
     }
  
     .p {
