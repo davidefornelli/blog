@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      4 min read
     
 </span></p>
 
@@ -157,9 +157,11 @@ window.onload = wrap_img;
 </li>
 <li class="toc-entry toc-h1"><a href="#Notebook">Notebook </a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#Notes">Notes </a></li>
+<li class="toc-entry toc-h3"><a href="#Commits">Commits </a></li>
 <li class="toc-entry toc-h2"><a href="#Configuration">Configuration </a></li>
 <li class="toc-entry toc-h2"><a href="#Import-modules">Import modules </a></li>
+<li class="toc-entry toc-h2"><a href="#Extract-summaries">Extract summaries </a></li>
+<li class="toc-entry toc-h2"><a href="#Results">Results </a></li>
 </ul>
 </li>
 </ul><!--
@@ -210,13 +212,10 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Notes">
-<a class="anchor" href="#Notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes<a class="anchor-link" href="#Notes"> </a>
-</h2>
 <p></p>
 <div class="flash flash-error">
     <svg class="octicon octicon-alert" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg>
-    <strong>Warning: </strong>The following example is based on specific commits
+    <strong>Warning: </strong>The following code is based on specific commits
 </div>
 
 </div>
@@ -226,15 +225,12 @@ window.onload = wrap_img;
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!-- collapse_output --></p>
+<h3 id="Commits">
+<a class="anchor" href="#Commits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Commits<a class="anchor-link" href="#Commits"> </a>
+</h3>
 <ul>
-<li>Chef<ul>
-<li>commit: ac2a18c678a457b59535272a8d95cdc0c58ea02c</li>
-</ul>
-</li>
-<li>Ingredients<ul>
-<li>commit: b01c0ab18d3d50d7e2836b71e22749e805fadac6</li>
-</ul>
-</li>
+<li>Chef: ac2a18c678a457b59535272a8d95cdc0c58ea02c</li>
+<li>Ingredients: b01c0ab18d3d50d7e2836b71e22749e805fadac6</li>
 </ul>
 
 </div>
@@ -288,6 +284,10 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">httpimport</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
 
 <span class="n">gist_url_chef</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"https://gist.githubusercontent.com/</span><span class="si">{</span><span class="n">gist_user</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">gist_chef_id</span><span class="si">}</span><span class="s2">/raw"</span>
 <span class="n">gist_ingredients_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"https://gist.githubusercontent.com/</span><span class="si">{</span><span class="n">gist_user</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">gist_ingredients_id</span><span class="si">}</span><span class="s2">/raw"</span>
@@ -312,33 +312,19 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Collecting azure-ai-textanalytics==5.2.0b2
-  Using cached azure_ai_textanalytics-5.2.0b2-py2.py3-none-any.whl (231 kB)
-Collecting msrest&gt;=0.6.21
-  Using cached msrest-0.6.21-py2.py3-none-any.whl (85 kB)
+<pre>Requirement already satisfied: azure-ai-textanalytics==5.2.0b2 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (5.2.0b2)
+Requirement already satisfied: azure-common~=1.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from azure-ai-textanalytics==5.2.0b2) (1.1.27)
 Requirement already satisfied: six&gt;=1.11.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from azure-ai-textanalytics==5.2.0b2) (1.16.0)
-Collecting azure-common~=1.1
-  Using cached azure_common-1.1.27-py2.py3-none-any.whl (12 kB)
-Collecting azure-core&lt;2.0.0,&gt;=1.19.1
-  Using cached azure_core-1.20.1-py2.py3-none-any.whl (177 kB)
-Collecting requests&gt;=2.18.4
-  Using cached requests-2.26.0-py2.py3-none-any.whl (62 kB)
-Collecting requests-oauthlib&gt;=0.5.0
-  Using cached requests_oauthlib-1.3.0-py2.py3-none-any.whl (23 kB)
-Collecting certifi&gt;=2017.4.17
-  Using cached certifi-2021.10.8-py2.py3-none-any.whl (149 kB)
-Collecting isodate&gt;=0.6.0
-  Using cached isodate-0.6.0-py2.py3-none-any.whl (45 kB)
-Collecting charset-normalizer~=2.0.0
-  Using cached charset_normalizer-2.0.7-py3-none-any.whl (38 kB)
-Collecting urllib3&lt;1.27,&gt;=1.21.1
-  Using cached urllib3-1.26.7-py2.py3-none-any.whl (138 kB)
-Collecting idna&lt;4,&gt;=2.5
-  Using cached idna-3.3-py3-none-any.whl (61 kB)
-Collecting oauthlib&gt;=3.0.0
-  Using cached oauthlib-3.1.1-py2.py3-none-any.whl (146 kB)
-Installing collected packages: urllib3, idna, charset-normalizer, certifi, requests, oauthlib, requests-oauthlib, isodate, msrest, azure-core, azure-common, azure-ai-textanalytics
-Successfully installed azure-ai-textanalytics-5.2.0b2 azure-common-1.1.27 azure-core-1.20.1 certifi-2021.10.8 charset-normalizer-2.0.7 idna-3.3 isodate-0.6.0 msrest-0.6.21 oauthlib-3.1.1 requests-2.26.0 requests-oauthlib-1.3.0 urllib3-1.26.7
+Requirement already satisfied: msrest&gt;=0.6.21 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from azure-ai-textanalytics==5.2.0b2) (0.6.21)
+Requirement already satisfied: azure-core&lt;2.0.0,&gt;=1.19.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from azure-ai-textanalytics==5.2.0b2) (1.20.1)
+Requirement already satisfied: requests&gt;=2.18.4 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from azure-core&lt;2.0.0,&gt;=1.19.1-&gt;azure-ai-textanalytics==5.2.0b2) (2.26.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from msrest&gt;=0.6.21-&gt;azure-ai-textanalytics==5.2.0b2) (2021.10.8)
+Requirement already satisfied: requests-oauthlib&gt;=0.5.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from msrest&gt;=0.6.21-&gt;azure-ai-textanalytics==5.2.0b2) (1.3.0)
+Requirement already satisfied: isodate&gt;=0.6.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from msrest&gt;=0.6.21-&gt;azure-ai-textanalytics==5.2.0b2) (0.6.0)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.18.4-&gt;azure-core&lt;2.0.0,&gt;=1.19.1-&gt;azure-ai-textanalytics==5.2.0b2) (2.0.7)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.18.4-&gt;azure-core&lt;2.0.0,&gt;=1.19.1-&gt;azure-ai-textanalytics==5.2.0b2) (1.26.7)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.18.4-&gt;azure-core&lt;2.0.0,&gt;=1.19.1-&gt;azure-ai-textanalytics==5.2.0b2) (3.3)
+Requirement already satisfied: oauthlib&gt;=3.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests-oauthlib&gt;=0.5.0-&gt;msrest&gt;=0.6.21-&gt;azure-ai-textanalytics==5.2.0b2) (3.1.1)
 </pre>
 </div>
 </div>
@@ -349,6 +335,15 @@ Successfully installed azure-ai-textanalytics-5.2.0b2 azure-common-1.1.27 azure-
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Extract-summaries">
+<a class="anchor" href="#Extract-summaries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extract summaries<a class="anchor-link" href="#Extract-summaries"> </a>
+</h2>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -367,12 +362,10 @@ Successfully installed azure-ai-textanalytics-5.2.0b2 azure-common-1.1.27 azure-
 
 <span class="n">summary_text</span> <span class="o">=</span> <span class="n">az_cs_summarization</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span>
     <span class="n">texts</span><span class="o">=</span><span class="n">texts</span><span class="p">,</span>
-    <span class="n">cs_endpoint</span><span class="o">=</span><span class="s1">'https://westus2.api.cognitive.microsoft.com/'</span><span class="p">,</span>
-    <span class="n">cs_key</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span>
+    <span class="n">cs_endpoint</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'CS_TEXTANALYTICS_ENDPOINT'</span><span class="p">],</span>
+    <span class="n">cs_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'CS_TEXTANALYTICS_KEY'</span><span class="p">],</span>
     <span class="n">language</span><span class="o">=</span><span class="s1">'en'</span>
 <span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">summary_text</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -384,78 +377,53 @@ Successfully installed azure-ai-textanalytics-5.2.0b2 azure-common-1.1.27 azure-
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ClientAuthenticationError</span>                 Traceback (most recent call last)
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/ai/textanalytics/_text_analytics_client.py</span> in <span class="ansi-cyan-fg">begin_analyze_actions</span><span class="ansi-blue-fg">(self, documents, actions, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1072</span>                 continuation_token<span class="ansi-blue-fg">=</span>continuation_token<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">-&gt; 1073</span><span class="ansi-red-fg">                 </span><span class="ansi-blue-fg">**</span>kwargs
-<span class="ansi-green-intense-fg ansi-bold">   1074</span>             )
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[ExtractSummaryResult(id=0, sentences=[SummarySentence(text=A computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically., rank_score=1.0, offset=9, length=120), SummarySentence(text=These programs enable computers to perform a wide range of tasks., rank_score=0.95, offset=205, length=65), SummarySentence(text=A broad range of industrial and consumer products use computers as control systems., rank_score=0.79, offset=583, length=83)], warnings=[], statistics=None, is_error=False)]
+</pre>
+</div>
+</div>
 
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/ai/textanalytics/_generated/_operations_mixin.py</span> in <span class="ansi-cyan-fg">begin_analyze</span><span class="ansi-blue-fg">(self, body, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    110</span>         mixin_instance<span class="ansi-blue-fg">.</span>_deserialize <span class="ansi-blue-fg">=</span> Deserializer<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_models_dict<span class="ansi-blue-fg">(</span>api_version<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 111</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> mixin_instance<span class="ansi-blue-fg">.</span>begin_analyze<span class="ansi-blue-fg">(</span>body<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    112</span> 
+</div>
+</div>
 
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/core/tracing/decorator.py</span> in <span class="ansi-cyan-fg">wrapper_use_tracer</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     82</span>             <span class="ansi-green-fg">if</span> span_impl_type <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 83</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">return</span> func<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     84</span> 
+</div>
+    
 
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/ai/textanalytics/_generated/v3_2_preview_2/operations/_text_analytics_client_operations.py</span> in <span class="ansi-cyan-fg">begin_analyze</span><span class="ansi-blue-fg">(self, body, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    541</span>                 cls<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">lambda</span> x<span class="ansi-blue-fg">,</span>y<span class="ansi-blue-fg">,</span>z<span class="ansi-blue-fg">:</span> x<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">--&gt; 542</span><span class="ansi-red-fg">                 </span><span class="ansi-blue-fg">**</span>kwargs
-<span class="ansi-green-intense-fg ansi-bold">    543</span>             )
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Results">
+<a class="anchor" href="#Results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results<a class="anchor-link" href="#Results"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/ai/textanalytics/_generated/v3_2_preview_2/operations/_text_analytics_client_operations.py</span> in <span class="ansi-cyan-fg">_analyze_initial</span><span class="ansi-blue-fg">(self, body, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    480</span>         <span class="ansi-green-fg">if</span> response<span class="ansi-blue-fg">.</span>status_code <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">200</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">202</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 481</span><span class="ansi-red-fg">             </span>map_error<span class="ansi-blue-fg">(</span>status_code<span class="ansi-blue-fg">=</span>response<span class="ansi-blue-fg">.</span>status_code<span class="ansi-blue-fg">,</span> response<span class="ansi-blue-fg">=</span>response<span class="ansi-blue-fg">,</span> error_map<span class="ansi-blue-fg">=</span>error_map<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    482</span>             <span class="ansi-green-fg">raise</span> HttpResponseError<span class="ansi-blue-fg">(</span>response<span class="ansi-blue-fg">=</span>response<span class="ansi-blue-fg">)</span>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">sx</span> <span class="ow">in</span> <span class="n">summary_text</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sx</span><span class="o">.</span><span class="n">sentences</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
 
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/core/exceptions.py</span> in <span class="ansi-cyan-fg">map_error</span><span class="ansi-blue-fg">(status_code, response, error_map)</span>
-<span class="ansi-green-intense-fg ansi-bold">    104</span>     error <span class="ansi-blue-fg">=</span> error_type<span class="ansi-blue-fg">(</span>response<span class="ansi-blue-fg">=</span>response<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 105</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">raise</span> error
-<span class="ansi-green-intense-fg ansi-bold">    106</span> 
+    </div>
+</div>
+</div>
 
-<span class="ansi-red-fg">ClientAuthenticationError</span>: (401) Access denied due to invalid subscription key or wrong API endpoint. Make sure to provide a valid key for an active subscription and use a correct regional API endpoint for your resource.
-Code: 401
-Message: Access denied due to invalid subscription key or wrong API endpoint. Make sure to provide a valid key for an active subscription and use a correct regional API endpoint for your resource.
+<div class="output_wrapper">
+<div class="output">
 
-During handling of the above exception, another exception occurred:
+<div class="output_area">
 
-<span class="ansi-red-fg">ClientAuthenticationError</span>                 Traceback (most recent call last)
-<span class="ansi-green-fg">/tmp/ipykernel_31202/3955493862.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span>     cs_endpoint<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">'https://westus2.api.cognitive.microsoft.com/'</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">     14</span>     cs_key<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">''</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">---&gt; 15</span><span class="ansi-red-fg">     </span>language<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">'en'</span>
-<span class="ansi-green-intense-fg ansi-bold">     16</span> )
-<span class="ansi-green-intense-fg ansi-bold">     17</span> 
-
-<span class="ansi-green-fg">https://gist.githubusercontent.com/davidefornelli/5c75b7cdea330d15dcd93adbb08648c3/raw/az_cs_summarization.py</span> in <span class="ansi-cyan-fg">summarize</span><span class="ansi-blue-fg">(texts, cs_endpoint, cs_key, language)</span>
-
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/core/tracing/decorator.py</span> in <span class="ansi-cyan-fg">wrapper_use_tracer</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     81</span>             span_impl_type <span class="ansi-blue-fg">=</span> settings<span class="ansi-blue-fg">.</span>tracing_implementation<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     82</span>             <span class="ansi-green-fg">if</span> span_impl_type <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 83</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">return</span> func<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     84</span> 
-<span class="ansi-green-intense-fg ansi-bold">     85</span>             <span class="ansi-red-fg"># Merge span is parameter is set, but only if no explicit parent are passed</span>
-
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/ai/textanalytics/_text_analytics_client.py</span> in <span class="ansi-cyan-fg">begin_analyze_actions</span><span class="ansi-blue-fg">(self, documents, actions, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1082</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1083</span>         <span class="ansi-green-fg">except</span> HttpResponseError <span class="ansi-green-fg">as</span> error<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1084</span><span class="ansi-red-fg">             </span>process_http_response_error<span class="ansi-blue-fg">(</span>error<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages/azure/ai/textanalytics/_response_handlers.py</span> in <span class="ansi-cyan-fg">process_http_response_error</span><span class="ansi-blue-fg">(error)</span>
-<span class="ansi-green-intense-fg ansi-bold">     58</span>     <span class="ansi-green-fg">if</span> error<span class="ansi-blue-fg">.</span>status_code <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">401</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     59</span>         raise_error <span class="ansi-blue-fg">=</span> ClientAuthenticationError
-<span class="ansi-green-fg">---&gt; 60</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">raise</span> raise_error<span class="ansi-blue-fg">(</span>response<span class="ansi-blue-fg">=</span>error<span class="ansi-blue-fg">.</span>response<span class="ansi-blue-fg">,</span> error_format<span class="ansi-blue-fg">=</span>CSODataV4Format<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     61</span> 
-<span class="ansi-green-intense-fg ansi-bold">     62</span> 
-
-<span class="ansi-red-fg">ClientAuthenticationError</span>: (401) Access denied due to invalid subscription key or wrong API endpoint. Make sure to provide a valid key for an active subscription and use a correct regional API endpoint for your resource.
-Code: 401
-Message: Access denied due to invalid subscription key or wrong API endpoint. Make sure to provide a valid key for an active subscription and use a correct regional API endpoint for your resource.</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically.
+These programs enable computers to perform a wide range of tasks.
+A broad range of industrial and consumer products use computers as control systems.
+</pre>
 </div>
 </div>
 
