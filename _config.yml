@@ -41,7 +41,8 @@ minima:
   social_links:
     github: davidefornelli
     linkedin: davidefornelli
-    twitter: davfornelli
+    twitter: davefornelli
+    wakatime: davidefornelli
 
 # Set this to true to get LaTeX math equation support
 use_math: 
