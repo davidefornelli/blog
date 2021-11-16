@@ -25,7 +25,9 @@ spotifyplaylist: 12pbA9f3kqLNYH3etMLErU
 
 ## 🐱‍🚀Spotify
 {% include spotifyprofile.html id=page.spotifysername %}
+
+### Songs of the week
+
 {% gist c59ee6c8705773288d90d365225735ed%}
 <!-- {% include spotifyplaylist.html id=page.spotifyplaylist %} -->
 <!-- <iframe src="https://open.spotify.com/embed/playlist/12pbA9f3kqLNYH3etMLErU?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe> -->
-
