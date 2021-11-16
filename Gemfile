@@ -12,7 +12,11 @@ gem "jekyll", "~> 4.1.0"
 gem "minima"
 # To upgrade, run `bundle update github-pages`.
 # gem "github-pages", group: :jekyll_plugins
+# gem "githubchart"
 # If you have any plugins, put them here!
+
+gem 'jektify'
+
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
   gem 'jekyll-octicons'
@@ -26,6 +30,11 @@ group :jekyll_plugins do
   gem 'jekyll-sitemap'
   gem 'jekyll_github_sample'
   gem 'jekyll-asciinema'
+  gem 'jekyll-giphy'
+  gem "jektify"
+  # gem "jekyll-spotify"
+  # gem 'jektify'
+
 end
 
 gem "kramdown-math-katex"

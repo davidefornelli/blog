@@ -27,6 +27,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    jektify (0.1.0)
     jekyll (4.1.1)
       addressable (~> 2.4)
       colorator (~> 1.0)
@@ -46,6 +47,7 @@ GEM
       jekyll (>= 2.0)
     jekyll-feed (0.15.0)
       jekyll (>= 3.7, < 5.0)
+    jekyll-giphy (1.0.0)
     jekyll-gist (1.5.0)
       octokit (~> 4.2)
     jekyll-octicons (11.0.0)
@@ -139,9 +141,11 @@ PLATFORMS
 
 DEPENDENCIES
   faraday (< 1.0)
+  jektify
   jekyll (~> 4.1.0)
   jekyll-asciinema
   jekyll-feed (~> 0.12)
+  jekyll-giphy
   jekyll-gist
   jekyll-octicons
   jekyll-paginate

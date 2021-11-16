@@ -50,7 +50,7 @@ use_math:
 show_description: true
 
 # Set this to true to display image previews on home page, if they exist
-show_image: false
+show_image: true
 
 # Set this to true to turn on annotations with hypothes.is (https://web.hypothes.is/)
 annotations: false
@@ -97,6 +97,32 @@ plugins:
   - jemoji
   - jekyll_github_sample
   - jekyll-asciinema
+  - jektify
+  - jekyll-giphy
+  # - jekyll-spotify
+  # - jekyll-github-chart
+  # - jekyll-spotify
+ 
+jektify:
+  enable: true
+  # open: true
+  # toggle:
+  #   enable: true  
+  # spotify:
+  #   user: williamcanin
+  #   text: See me no Spotify
+  # sass:
+  #   jekyll: false
+  #   other:
+  #     dir: "way/to/your/SASS"   
+  # title:
+  #   enable: true
+  #   text: "Jektify"
+  # description:
+  #   enable: true
+  #   text: |
+  #     Jekyll plugin to generate html snippets for embedding Spotify Musics.
+  #     To listen to the full song, open your Spotify and start these musics.
 
 # See https://jekyllrb.com/docs/pagination/
 # For pagination to work, you cannot have index.md at the root of your repo, instead you must rename this file to index.html
