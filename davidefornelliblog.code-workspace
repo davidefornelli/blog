@@ -5,6 +5,15 @@
 		},
 		{
 			"path": "../../davidefornelli/cookbook"
+		},
+		{
+			"path": "../../davidefornelli/tutorials"
+		},
+		{
+			"path": "../../davidefornelli/tutorial-cool-hall"
 		}
-	]
+	],
+	"settings": {
+		"python.defaultInterpreterPath": "/home/daforne/repos/github/davidefornelli/cookbook/.venv/bin/python"
+	}
 }

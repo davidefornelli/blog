@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Purview Custom process | Davide Fornelli</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Purview Custom process" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to create a custom Purview dataset and process with python" />
+<meta property="og:description" content="How to create a custom Purview dataset and process with python" />
+<link rel="canonical" href="https://davidefornelli.com/purview/python/jupyter/2021/12/14/nb_purview_01.html" />
+<meta property="og:url" content="https://davidefornelli.com/purview/python/jupyter/2021/12/14/nb_purview_01.html" />
+<meta property="og:site_name" content="Davide Fornelli" />
+<meta property="og:image" content="https://davidefornelli.com/images/social/purview_custom_process.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-12-14T00:00:00-06:00" />
+<script type="application/ld+json">
+{"headline":"Purview Custom process","dateModified":"2021-12-14T00:00:00-06:00","datePublished":"2021-12-14T00:00:00-06:00","url":"https://davidefornelli.com/purview/python/jupyter/2021/12/14/nb_purview_01.html","@type":"BlogPosting","image":"https://davidefornelli.com/images/social/purview_custom_process.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://davidefornelli.com/purview/python/jupyter/2021/12/14/nb_purview_01.html"},"description":"How to create a custom Purview dataset and process with python","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://davidefornelli.com/feed.xml" title="Davide Fornelli" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3FB0SLT15B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3FB0SLT15B');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Davide Fornelli</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Purview | Custom process</h1><p class="page-description">How to create a custom Purview dataset and process with python</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-12-14T00:00:00-06:00" itemprop="datePublished">
+        Dec 14, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#purview">purview</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/davidefornelli/blog/tree/master/_notebooks/2021-12-14-nb_purview_01.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/davidefornelli/blog/master?filepath=_notebooks%2F2021-12-14-nb_purview_01.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/davidefornelli/blog/blob/master/_notebooks/2021-12-14-nb_purview_01.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Prerequisites">Prerequisites </a></li>
+<li class="toc-entry toc-h2"><a href="#Code">Code </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Import">Import </a></li>
+<li class="toc-entry toc-h3"><a href="#Settings">Settings </a></li>
+<li class="toc-entry toc-h3"><a href="#Clients">Clients </a></li>
+<li class="toc-entry toc-h3"><a href="#Entities">Entities </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Result">Result </a></li>
+<li class="toc-entry toc-h2"><a href="#Utils">Utils </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Delete-entities">Delete entities </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-12-14-nb_purview_01.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Prerequisites">
+<a class="anchor" href="#Prerequisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prerequisites<a class="anchor-link" href="#Prerequisites"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pyapacheatlas
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Collecting pyapacheatlas
+  Downloading pyapacheatlas-0.10.0-py3-none-any.whl (68 kB)
+     |████████████████████████████████| 68 kB 1.9 MB/s             
+Collecting openpyxl&gt;=3.0
+  Downloading openpyxl-3.0.9-py2.py3-none-any.whl (242 kB)
+     |████████████████████████████████| 242 kB 3.8 MB/s            
+Requirement already satisfied: requests&gt;=2.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from pyapacheatlas) (2.26.0)
+Collecting et-xmlfile
+  Using cached et_xmlfile-1.1.0-py3-none-any.whl (4.7 kB)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2021.10.8)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2.0.7)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (1.26.7)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (3.3)
+Installing collected packages: et-xmlfile, openpyxl, pyapacheatlas
+Successfully installed et-xmlfile-1.1.0 openpyxl-3.0.9 pyapacheatlas-0.10.0
+Note: you may need to restart the kernel to use updated packages.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Code">
+<a class="anchor" href="#Code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code<a class="anchor-link" href="#Code"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import">
+<a class="anchor" href="#Import" aria-hidden="true"><span class="octicon octicon-link"></span></a>Import<a class="anchor-link" href="#Import"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyapacheatlas.auth</span> <span class="kn">import</span> <span class="n">ServicePrincipalAuthentication</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.client</span> <span class="kn">import</span> <span class="n">PurviewClient</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.entity</span> <span class="kn">import</span> <span class="n">AtlasEntity</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.typedef</span> <span class="kn">import</span> <span class="n">EntityTypeDef</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.util</span> <span class="kn">import</span> <span class="n">GuidTracker</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.typedef</span> <span class="kn">import</span> <span class="n">ChildEndDef</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.typedef</span> <span class="kn">import</span> <span class="n">RelationshipTypeDef</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.typedef</span> <span class="kn">import</span> <span class="n">ParentEndDef</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.typedef</span> <span class="kn">import</span> <span class="n">Cardinality</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core.typedef</span> <span class="kn">import</span> <span class="n">AtlasAttributeDef</span>
+<span class="kn">from</span> <span class="nn">pyapacheatlas.core</span> <span class="kn">import</span> <span class="n">AtlasProcess</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Settings">
+<a class="anchor" href="#Settings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Settings<a class="anchor-link" href="#Settings"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tenant_id</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="n">client_id</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="n">client_secret</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="n">purview_name</span> <span class="o">=</span> <span class="s2">""</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Clients">
+<a class="anchor" href="#Clients" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clients<a class="anchor-link" href="#Clients"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">atlas_sp</span> <span class="o">=</span> <span class="n">ServicePrincipalAuthentication</span><span class="p">(</span>
+    <span class="n">tenant_id</span><span class="o">=</span><span class="n">tenant_id</span><span class="p">,</span>
+    <span class="n">client_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">,</span>
+    <span class="n">client_secret</span><span class="o">=</span><span class="n">client_secret</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">purview_client</span> <span class="o">=</span> <span class="n">PurviewClient</span><span class="p">(</span>
+    <span class="n">account_name</span><span class="o">=</span><span class="n">purview_name</span><span class="p">,</span>
+    <span class="n">authentication</span><span class="o">=</span><span class="n">atlas_sp</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Entities">
+<a class="anchor" href="#Entities" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entities<a class="anchor-link" href="#Entities"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">guid_tracker</span> <span class="o">=</span> <span class="n">GuidTracker</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">custom_dataset</span> <span class="o">=</span> <span class="n">purview_client</span><span class="o">.</span><span class="n">upload_typedefs</span><span class="p">(</span>
+    <span class="n">entityDefs</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">EntityTypeDef</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"myCustomDataSet"</span><span class="p">,</span>
+            <span class="n">superTypes</span><span class="o">=</span><span class="p">[</span><span class="s2">"DataSet"</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="p">],</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">myCustomDataset01</span> <span class="o">=</span> <span class="n">AtlasEntity</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"myCustomDataset01"</span><span class="p">,</span>
+    <span class="n">typeName</span><span class="o">=</span><span class="s2">"myCustomDataSet"</span><span class="p">,</span>
+    <span class="n">qualified_name</span><span class="o">=</span><span class="s2">"pyapacheatlas://mycustomdataset01"</span><span class="p">,</span>
+    <span class="n">guid</span><span class="o">=</span><span class="n">guid_tracker</span><span class="o">.</span><span class="n">get_guid</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">myCustomDataset02</span> <span class="o">=</span> <span class="n">AtlasEntity</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"myCustomDataset02"</span><span class="p">,</span>
+    <span class="n">typeName</span><span class="o">=</span><span class="s2">"myCustomDataSet"</span><span class="p">,</span>
+    <span class="n">qualified_name</span><span class="o">=</span><span class="s2">"pyapacheatlas://mycustomdataset02"</span><span class="p">,</span>
+    <span class="n">guid</span><span class="o">=</span><span class="n">guid_tracker</span><span class="o">.</span><span class="n">get_guid</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">myCustomProcess01</span> <span class="o">=</span> <span class="n">AtlasProcess</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"myCustomProcess01"</span><span class="p">,</span>
+    <span class="n">typeName</span><span class="o">=</span><span class="s2">"Process"</span><span class="p">,</span>
+    <span class="n">qualified_name</span><span class="o">=</span><span class="s2">"pyapacheatlas://mycustomprocess01"</span><span class="p">,</span>
+    <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">myCustomDataset01</span><span class="p">],</span>
+    <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">myCustomDataset02</span><span class="p">],</span>
+    <span class="n">guid</span><span class="o">=</span><span class="n">guid_tracker</span><span class="o">.</span><span class="n">get_guid</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">purview_client</span><span class="o">.</span><span class="n">upload_entities</span><span class="p">(</span>
+    <span class="n">batch</span><span class="o">=</span><span class="p">[</span><span class="n">myCustomDataset01</span><span class="p">,</span> <span class="n">myCustomDataset02</span><span class="p">,</span> <span class="n">myCustomProcess01</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Result">
+<a class="anchor" href="#Result" aria-hidden="true"><span class="octicon octicon-link"></span></a>Result<a class="anchor-link" href="#Result"> </a>
+</h2>
+<p><img src="/images/copied_from_nb/images/purview_custom_process.png" alt="Call graph"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Utils">
+<a class="anchor" href="#Utils" aria-hidden="true"><span class="octicon octicon-link"></span></a>Utils<a class="anchor-link" href="#Utils"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Delete-entities">
+<a class="anchor" href="#Delete-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a>Delete entities<a class="anchor-link" href="#Delete-entities"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">purview_client</span><span class="o">.</span><span class="n">delete_typedefs</span><span class="p">(</span>
+    <span class="n">entityDefs</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"myCustomProcess"</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="davidefornelli/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/purview/python/jupyter/2021/12/14/nb_purview_01.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Everyday A.I. engineering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/davidefornelli" title="davidefornelli"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/davidefornelli" title="davidefornelli"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/davefornelli" title="davefornelli"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

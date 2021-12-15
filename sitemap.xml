@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://davidefornelli.com/jupyter/recipe/azuretextanalytics/azure/python/2021/11/11/nb_chef_recipe_cs_summarization.html</loc>
+<loc>https://davidefornelli.com/recipe/azuretextanalytics/azure/python/jupyter/2021/11/11/nb_chef_recipe_cs_summarization.html</loc>
 <lastmod>2021-11-11T00:00:00-06:00</lastmod>
+</url>
+<url>
+<loc>https://davidefornelli.com/recipe/python/jupyter/2021/11/18/nb_chef_recipe_jokes.html</loc>
+<lastmod>2021-11-18T00:00:00-06:00</lastmod>
+</url>
+<url>
+<loc>https://davidefornelli.com/purview/python/jupyter/2021/12/14/nb_purview_01.html</loc>
+<lastmod>2021-12-14T00:00:00-06:00</lastmod>
 </url>
 <url>
 <loc>https://davidefornelli.com/about/</loc>
