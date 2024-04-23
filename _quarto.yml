@@ -1,0 +1,33 @@
+project:
+  type: website
+
+theme:
+  light: cosmo
+  dark: darkly
+
+# theme:
+#   light: cosmo
+#   dark: [cosmo, theme-dark.scss]
+
+website:
+  title: "Davide Fornelli"
+  # reader-mode: true
+  site-url: https://www.davidefornelli.com
+  search: true
+  navbar:
+    logo: images/batman_icon.png
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/davidefornelli/
+      - icon: twitter
+        href: https://twitter.com/dvdfornelli
+  google-analytics: G-V41FPLBXSF
+
+execute: 
+  freeze: auto
+
+# format:
+#   html:
+#     theme: cosmo
+#     css: styles.css 
