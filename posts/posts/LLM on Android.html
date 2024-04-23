@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2024-04-23">
-<meta name="description" content="Learn how to install and run Ollama, a powerful tool for serving LLMs, straight on your Android device.">
+<meta name="description" content="Unleash the Power of AI on Your Android Device with Termux: A Comprehensive Guide to Installing Ollama">
 
-<title>Davide Fornelli - How to Run Ollama on Your Android Phone</title>
+<title>Davide Fornelli - Installing Ollama on Android Using Termux: A Step-by-Step Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -163,10 +163,10 @@ gtag('config', 'G-V41FPLBXSF', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">How to Run Ollama on Your Android Phone</h1>
+      <h1 class="title">Installing Ollama on Android Using Termux: A Step-by-Step Guide</h1>
                   <div>
         <div class="description">
-          Learn how to install and run Ollama, a powerful tool for serving LLMs, straight on your Android device.
+          Unleash the Power of AI on Your Android Device with Termux: A Comprehensive Guide to Installing Ollama
         </div>
       </div>
                           <div class="quarto-categories">
@@ -200,16 +200,19 @@ gtag('config', 'G-V41FPLBXSF', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-set-up-your-system-with-f-droid-termux-and-ollama" id="toc-how-to-set-up-your-system-with-f-droid-termux-and-ollama" class="nav-link active" data-scroll-target="#how-to-set-up-your-system-with-f-droid-termux-and-ollama">How to Set Up Your System with F-Droid, Termux and Ollama</a>
-  <ul class="collapse">
-  <li><a href="#step-1-installing-f-droid" id="toc-step-1-installing-f-droid" class="nav-link" data-scroll-target="#step-1-installing-f-droid">Step 1: Installing F-Droid</a></li>
-  <li><a href="#step-2-installing-termux" id="toc-step-2-installing-termux" class="nav-link" data-scroll-target="#step-2-installing-termux">Step 2: Installing Termux</a></li>
-  <li><a href="#step-3-installing-proot-distro" id="toc-step-3-installing-proot-distro" class="nav-link" data-scroll-target="#step-3-installing-proot-distro">Step 3: Installing proot-distro</a></li>
-  <li><a href="#step-4-installing-tmux" id="toc-step-4-installing-tmux" class="nav-link" data-scroll-target="#step-4-installing-tmux">Step 4: Installing Tmux</a></li>
-  <li><a href="#step-5-installing-ollama" id="toc-step-5-installing-ollama" class="nav-link" data-scroll-target="#step-5-installing-ollama">Step 5: Installing Ollama</a></li>
-  <li><a href="#step-6-setting-up-tmux-window-and-ollama" id="toc-step-6-setting-up-tmux-window-and-ollama" class="nav-link" data-scroll-target="#step-6-setting-up-tmux-window-and-ollama">Step 6: Setting Up Tmux Window and Ollama</a></li>
-  <li><a href="#step-7-model-testing" id="toc-step-7-model-testing" class="nav-link" data-scroll-target="#step-7-model-testing">Step 7: Model Testing</a></li>
-  </ul></li>
+  <li><a href="#step-1-install-f-droid" id="toc-step-1-install-f-droid" class="nav-link active" data-scroll-target="#step-1-install-f-droid">Step 1: Install F-Droid</a></li>
+  <li><a href="#step-2-install-termux" id="toc-step-2-install-termux" class="nav-link" data-scroll-target="#step-2-install-termux">Step 2: Install Termux</a></li>
+  <li><a href="#step-3-update-and-upgrade-packages" id="toc-step-3-update-and-upgrade-packages" class="nav-link" data-scroll-target="#step-3-update-and-upgrade-packages">Step 3: Update and Upgrade Packages</a></li>
+  <li><a href="#step-4-install-proot-distro" id="toc-step-4-install-proot-distro" class="nav-link" data-scroll-target="#step-4-install-proot-distro">Step 4: Install Proot-Distro</a></li>
+  <li><a href="#step-5-login-to-a-linux-distribution" id="toc-step-5-login-to-a-linux-distribution" class="nav-link" data-scroll-target="#step-5-login-to-a-linux-distribution">Step 5: Login to a Linux Distribution</a></li>
+  <li><a href="#step-6-install-tmux" id="toc-step-6-install-tmux" class="nav-link" data-scroll-target="#step-6-install-tmux">Step 6: Install Tmux</a></li>
+  <li><a href="#step-7-install-ollama" id="toc-step-7-install-ollama" class="nav-link" data-scroll-target="#step-7-install-ollama">Step 7: Install Ollama</a></li>
+  <li><a href="#step-8-create-a-new-tmux-session" id="toc-step-8-create-a-new-tmux-session" class="nav-link" data-scroll-target="#step-8-create-a-new-tmux-session">Step 8: Create a New Tmux Session</a></li>
+  <li><a href="#step-9-run-ollama-server" id="toc-step-9-run-ollama-server" class="nav-link" data-scroll-target="#step-9-run-ollama-server">Step 9: Run Ollama Server</a></li>
+  <li><a href="#step-10-create-a-new-pane-in-tmux" id="toc-step-10-create-a-new-pane-in-tmux" class="nav-link" data-scroll-target="#step-10-create-a-new-pane-in-tmux">Step 10: Create a New Pane in Tmux</a></li>
+  <li><a href="#step-11-run-an-ollama-model" id="toc-step-11-run-an-ollama-model" class="nav-link" data-scroll-target="#step-11-run-an-ollama-model">Step 11: Run an Ollama Model</a></li>
+  <li><a href="#step-12-test-the-model" id="toc-step-12-test-the-model" class="nav-link" data-scroll-target="#step-12-test-the-model">Step 12: Test the Model</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -220,63 +223,74 @@ gtag('config', 'G-V41FPLBXSF', { 'anonymize_ip': true});
 
 
 
-<section id="how-to-set-up-your-system-with-f-droid-termux-and-ollama" class="level1">
-<h1>How to Set Up Your System with F-Droid, Termux and Ollama</h1>
-<p>In an interconnected digital world, automation has never been more relevant. This tutorial walks you through the process of installing certain applications namely F-droid, Termux &amp; setting up Ollama, which is less known but equally efficient in machine learning models for your smartphone. That’s right - you can have your machine learning models directly on your Android phone!</p>
-<section id="step-1-installing-f-droid" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-installing-f-droid">Step 1: Installing F-Droid</h2>
-<p>F-Droid is an installable catalog of FOSS (Free and Open Source Software) application for the Android platform. To install F-Droid, follow the instructions provided on their official website or find it directly in the Google Play Store.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> f-droid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In this blog post, we’ll explore how to install and run the Ollama language model on an Android device using Termux, a powerful terminal emulator. This tutorial is designed for users who wish to leverage the capabilities of large language models directly on their mobile devices without the need for a desktop environment.</p>
+<section id="step-1-install-f-droid" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-install-f-droid">Step 1: Install F-Droid</h3>
+<p>F-Droid is an installable catalogue of FOSS (Free and Open Source Software) applications for the Android platform. Download and install the F-Droid app from <a href="https://f-droid.org/">https://f-droid.org/</a>.</p>
 </section>
-<section id="step-2-installing-termux" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-installing-termux">Step 2: Installing Termux</h2>
-<p>Termux is a terminal emulator for Android that works directly without any rooting or setup required. It embodies a minimal base system providing you with a complete Linux system in a reduced environment.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> termux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now let’s get your Termux package up to date:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> update</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> upgrade</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="step-2-install-termux" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-install-termux">Step 2: Install Termux</h3>
+<p>Once F-Droid is installed, open it and search for Termux. Install Termux, which will serve as your Linux environment on Android.</p>
 </section>
-<section id="step-3-installing-proot-distro" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-installing-proot-distro">Step 3: Installing proot-distro</h2>
-<p>proot-distro is a Termux plugin that helps you to install Linux distributions in a Termux environment.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> install proot-distro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To login to Debian, use the proot-distro login command:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pd</span> login debian</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="step-3-update-and-upgrade-packages" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-update-and-upgrade-packages">Step 3: Update and Upgrade Packages</h3>
+<p>Open Termux and update its package repository to ensure you have access to the latest software versions:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> update</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> upgrade</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="step-4-installing-tmux" class="level2">
-<h2 class="anchored" data-anchor-id="step-4-installing-tmux">Step 4: Installing Tmux</h2>
-<p>Tmux is a terminal multiplexer, it lets you switch easily between several programs in one terminal.</p>
-<p>First, update your apt package and then upgrade it:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> update</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> upgrade</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now for installing tmux:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install tmux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="step-4-install-proot-distro" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-install-proot-distro">Step 4: Install Proot-Distro</h3>
+<p>Proot-Distro allows you to run different Linux distributions within Termux. Install it using:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> install proot-distro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For more details, visit the <a href="https://github.com/termux/proot-distro">Proot-Distro GitHub page</a>.</p>
 </section>
-<section id="step-5-installing-ollama" class="level2">
-<h2 class="anchored" data-anchor-id="step-5-installing-ollama">Step 5: Installing Ollama</h2>
-<p>Ollama is an AI-infrastructure startup that enables AI teams to deploy their machine learning models directly.</p>
-<p>To install Ollama, use the curl command to fetch the install.sh script from the ollama website:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://ollama.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="step-5-login-to-a-linux-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-login-to-a-linux-distribution">Step 5: Login to a Linux Distribution</h3>
+<p>For this tutorial, we will use Debian. Log in to your Debian environment with:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pd</span> login debian</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="step-6-setting-up-tmux-window-and-ollama" class="level2">
-<h2 class="anchored" data-anchor-id="step-6-setting-up-tmux-window-and-ollama">Step 6: Setting Up Tmux Window and Ollama</h2>
-<p>Once the installation is completed, you can then create a new tmux window and serve it with Ollama.</p>
-<p>Create a new tmux session:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span> new <span class="at">-s</span> llm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then run Ollama:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> serve</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Next, you’ll need to create a new pane in your tmux window. To do this, use the following commands. The quotes mean that it will split your window horizontally:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ctrl+b</span> <span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Finally, you can run Ollama’s model:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> run gemma:2b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="step-6-install-tmux" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-install-tmux">Step 6: Install Tmux</h3>
+<p>Tmux is a terminal multiplexer that allows you to run multiple terminal sessions simultaneously:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> update</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> upgrade</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install tmux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="step-7-model-testing" class="level2">
-<h2 class="anchored" data-anchor-id="step-7-model-testing">Step 7: Model Testing</h2>
-<p>With all the steps accurately followed and implemented, you’re now equipped to test your models. Ollama helps you implement and test your machine learning models with utmost ease.</p>
-<p>Moore’s law is a pretty amazing phenomenon that has allowed us to witness the current level of technological advancements. It brings the power of machine learning models right at your fingertips, literally, on your smartphone. It all starts with setting yourself up with F-Droid and Termux. Happy coding!</p>
+<section id="step-7-install-ollama" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-install-ollama">Step 7: Install Ollama</h3>
+<p>Within the Debian environment, download and install Ollama:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://ollama.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This script installs Ollama and its dependencies.</p>
+</section>
+<section id="step-8-create-a-new-tmux-session" class="level3">
+<h3 class="anchored" data-anchor-id="step-8-create-a-new-tmux-session">Step 8: Create a New Tmux Session</h3>
+<p>Start a new tmux session dedicated to running Ollama:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span> new <span class="at">-s</span> llm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-9-run-ollama-server" class="level3">
+<h3 class="anchored" data-anchor-id="step-9-run-ollama-server">Step 9: Run Ollama Server</h3>
+<p>In the tmux session, start the Ollama server:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> serve</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-10-create-a-new-pane-in-tmux" class="level3">
+<h3 class="anchored" data-anchor-id="step-10-create-a-new-pane-in-tmux">Step 10: Create a New Pane in Tmux</h3>
+<p>Split the current window into two panes by pressing <code>Ctrl+b "</code>.</p>
+</section>
+<section id="step-11-run-an-ollama-model" class="level3">
+<h3 class="anchored" data-anchor-id="step-11-run-an-ollama-model">Step 11: Run an Ollama Model</h3>
+<p>In the new pane, run a specific Ollama model. For example, to run the Gemma 2B model:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> run gemma:2b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-12-test-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="step-12-test-the-model">Step 12: Test the Model</h3>
+<p>Once the model is running, you can interact with it directly from the terminal. Enter prompts and observe the model’s responses, effectively using your Android device as a powerful AI tool.</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>By following these steps, you’ve successfully set up and run Ollama on your Android device using Termux. This setup not only demonstrates the flexibility of Android as a platform for running sophisticated software but also highlights how mobile devices can be used for advanced computing tasks typically reserved for desktop environments.</p>
+<p>This tutorial provides a foundation for exploring further applications of large language models on mobile devices, opening up possibilities for mobile-based AI development and experimentation.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

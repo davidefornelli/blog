@@ -77,6 +77,90 @@
     "text": "Footnotes\nYou can have footnotes in notebooks, however the syntax is different compared to markdown documents. This guide provides more detail about this syntax, which looks like this:\n{% raw %}For example, here is a footnote {% fn 1 %}.\nAnd another {% fn 2 %}\n{{ 'This is the footnote.' | fndetail: 1 }}\n{{ 'This is the other footnote. You can even have a [link](www.github.com)!' | fndetail: 2 }}{% endraw %}\nFor example, here is a footnote {% fn 1 %}.\nAnd another {% fn 2 %}\n{{ ‘This is the footnote.’ | fndetail: 1 }} {{ ‘This is the other footnote. You can even have a link!’ | fndetail: 2 }}"
   },
   {
+    "objectID": "posts/posts/LLM on Android.html",
+    "href": "posts/posts/LLM on Android.html",
+    "title": "Installing Ollama on Android Using Termux: A Step-by-Step Guide",
+    "section": "",
+    "text": "In this blog post, we’ll explore how to install and run the Ollama language model on an Android device using Termux, a powerful terminal emulator. This tutorial is designed for users who wish to leverage the capabilities of large language models directly on their mobile devices without the need for a desktop environment.\n\nStep 1: Install F-Droid\nF-Droid is an installable catalogue of FOSS (Free and Open Source Software) applications for the Android platform. Download and install the F-Droid app from https://f-droid.org/.\n\n\nStep 2: Install Termux\nOnce F-Droid is installed, open it and search for Termux. Install Termux, which will serve as your Linux environment on Android.\n\n\nStep 3: Update and Upgrade Packages\nOpen Termux and update its package repository to ensure you have access to the latest software versions:\npkg update\npkg upgrade\n\n\nStep 4: Install Proot-Distro\nProot-Distro allows you to run different Linux distributions within Termux. Install it using:\npkg install proot-distro\nFor more details, visit the Proot-Distro GitHub page.\n\n\nStep 5: Login to a Linux Distribution\nFor this tutorial, we will use Debian. Log in to your Debian environment with:\npd login debian\n\n\nStep 6: Install Tmux\nTmux is a terminal multiplexer that allows you to run multiple terminal sessions simultaneously:\napt update\napt upgrade\napt install tmux\n\n\nStep 7: Install Ollama\nWithin the Debian environment, download and install Ollama:\ncurl -fsSL https://ollama.com/install.sh | sh\nThis script installs Ollama and its dependencies.\n\n\nStep 8: Create a New Tmux Session\nStart a new tmux session dedicated to running Ollama:\ntmux new -s llm\n\n\nStep 9: Run Ollama Server\nIn the tmux session, start the Ollama server:\nollama serve\n\n\nStep 10: Create a New Pane in Tmux\nSplit the current window into two panes by pressing Ctrl+b \".\n\n\nStep 11: Run an Ollama Model\nIn the new pane, run a specific Ollama model. For example, to run the Gemma 2B model:\nollama run gemma:2b\n\n\nStep 12: Test the Model\nOnce the model is running, you can interact with it directly from the terminal. Enter prompts and observe the model’s responses, effectively using your Android device as a powerful AI tool.\n\n\nConclusion\nBy following these steps, you’ve successfully set up and run Ollama on your Android device using Termux. This setup not only demonstrates the flexibility of Android as a platform for running sophisticated software but also highlights how mobile devices can be used for advanced computing tasks typically reserved for desktop environments.\nThis tutorial provides a foundation for exploring further applications of large language models on mobile devices, opening up possibilities for mobile-based AI development and experimentation."
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "",
+    "text": "Call graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "",
+    "text": "Call graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Configuration",
+    "text": "Configuration\n\nParameters\n\ngist_user = 'davidefornelli'\ngist_chef_id = '1bc116f05d09e598a1a2dcfbb0e2fc22'\ngist_ingredients_id = '5c75b7cdea330d15dcd93adbb08648c3'\ningredients_to_import = [\n    (gist_ingredients_id, 'joking.py')\n]"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Configure environment",
+    "text": "Configure environment\n\n%pip install httpimport\n\nRequirement already satisfied: httpimport in /home/daforne/repos/github/davidefornelli/cookbook/.venv/lib/python3.7/site-packages (0.7.2)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nImport chef\n\nimport httpimport\n\nwith httpimport.remote_repo(\n    ['chef'],\n    f\"https://gist.githubusercontent.com/{gist_user}/{gist_chef_id}/raw\"\n):\n    import chef\n\n\n\n\nImport ingredients\n\ndef ingredients_import(ingredients):\n    for ingredient in ingredients:\n        mod, package = chef.process_gist_ingredient(\n            gist_id=ingredient[0],\n            gist_file=ingredient[1],\n            gist_user=gist_user\n        )\n        globals()[package] = mod\n\n\ningredients_import(ingredients=ingredients_to_import)\n\nCollecting pyjokes\n  Using cached pyjokes-0.6.0-py2.py3-none-any.whl (26 kB)\nInstalling collected packages: pyjokes\nSuccessfully installed pyjokes-0.6.0"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Tell me a joke",
+    "text": "Tell me a joke\n\njoking.tell_me_a_joke()\n\nHow many programmers does it take to kill a cockroach? Two: one holds, the other installs Windows on it."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog\nThis is a blog"
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html",
+    "title": "Purview | Custom process",
+    "section": "",
+    "text": "%pip install pyapacheatlas\n\nCollecting pyapacheatlas\n  Downloading pyapacheatlas-0.10.0-py3-none-any.whl (68 kB)\n     |████████████████████████████████| 68 kB 1.9 MB/s             \nCollecting openpyxl&gt;=3.0\n  Downloading openpyxl-3.0.9-py2.py3-none-any.whl (242 kB)\n     |████████████████████████████████| 242 kB 3.8 MB/s            \nRequirement already satisfied: requests&gt;=2.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from pyapacheatlas) (2.26.0)\nCollecting et-xmlfile\n  Using cached et_xmlfile-1.1.0-py3-none-any.whl (4.7 kB)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2021.10.8)\nRequirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2.0.7)\nRequirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (1.26.7)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (3.3)\nInstalling collected packages: et-xmlfile, openpyxl, pyapacheatlas\nSuccessfully installed et-xmlfile-1.1.0 openpyxl-3.0.9 pyapacheatlas-0.10.0\nNote: you may need to restart the kernel to use updated packages."
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#prerequisites",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#prerequisites",
+    "title": "Purview | Custom process",
+    "section": "",
+    "text": "%pip install pyapacheatlas\n\nCollecting pyapacheatlas\n  Downloading pyapacheatlas-0.10.0-py3-none-any.whl (68 kB)\n     |████████████████████████████████| 68 kB 1.9 MB/s             \nCollecting openpyxl&gt;=3.0\n  Downloading openpyxl-3.0.9-py2.py3-none-any.whl (242 kB)\n     |████████████████████████████████| 242 kB 3.8 MB/s            \nRequirement already satisfied: requests&gt;=2.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from pyapacheatlas) (2.26.0)\nCollecting et-xmlfile\n  Using cached et_xmlfile-1.1.0-py3-none-any.whl (4.7 kB)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2021.10.8)\nRequirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2.0.7)\nRequirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (1.26.7)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (3.3)\nInstalling collected packages: et-xmlfile, openpyxl, pyapacheatlas\nSuccessfully installed et-xmlfile-1.1.0 openpyxl-3.0.9 pyapacheatlas-0.10.0\nNote: you may need to restart the kernel to use updated packages."
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#code",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#code",
+    "title": "Purview | Custom process",
+    "section": "Code",
+    "text": "Code\n\nImport\n\nfrom pyapacheatlas.auth import ServicePrincipalAuthentication\nfrom pyapacheatlas.core.client import PurviewClient\nfrom pyapacheatlas.core.entity import AtlasEntity\nfrom pyapacheatlas.core.typedef import EntityTypeDef\nfrom pyapacheatlas.core.util import GuidTracker\nfrom pyapacheatlas.core.typedef import ChildEndDef\nfrom pyapacheatlas.core.typedef import RelationshipTypeDef\nfrom pyapacheatlas.core.typedef import ParentEndDef\nfrom pyapacheatlas.core.typedef import Cardinality\nfrom pyapacheatlas.core.typedef import AtlasAttributeDef\nfrom pyapacheatlas.core import AtlasProcess\n\n\n\nSettings\n\ntenant_id = \"\"\nclient_id = \"\"\nclient_secret = \"\"\npurview_name = \"\"\n\n\n\nClients\n\natlas_sp = ServicePrincipalAuthentication(\n    tenant_id=tenant_id,\n    client_id=client_id,\n    client_secret=client_secret\n)\n\n\npurview_client = PurviewClient(\n    account_name=purview_name,\n    authentication=atlas_sp\n)\n\n\n\nEntities\n\nguid_tracker = GuidTracker()\n\n\ncustom_dataset = purview_client.upload_typedefs(\n    entityDefs=[\n        EntityTypeDef(\n            name=\"myCustomDataSet\",\n            superTypes=[\"DataSet\"]\n        )\n    ],\n    force_update=True\n)\n\n\nmyCustomDataset01 = AtlasEntity(\n    name=\"myCustomDataset01\",\n    typeName=\"myCustomDataSet\",\n    qualified_name=\"pyapacheatlas://mycustomdataset01\",\n    guid=guid_tracker.get_guid()\n)\nmyCustomDataset02 = AtlasEntity(\n    name=\"myCustomDataset02\",\n    typeName=\"myCustomDataSet\",\n    qualified_name=\"pyapacheatlas://mycustomdataset02\",\n    guid=guid_tracker.get_guid()\n)\n\n\nmyCustomProcess01 = AtlasProcess(\n    name=\"myCustomProcess01\",\n    typeName=\"Process\",\n    qualified_name=\"pyapacheatlas://mycustomprocess01\",\n    inputs=[myCustomDataset01],\n    outputs=[myCustomDataset02],\n    guid=guid_tracker.get_guid()\n)\n\n\nresults = purview_client.upload_entities(\n    batch=[myCustomDataset01, myCustomDataset02, myCustomProcess01]\n)"
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#result",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#result",
+    "title": "Purview | Custom process",
+    "section": "Result",
+    "text": "Result\n\n\n\nCall graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#utils",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#utils",
+    "title": "Purview | Custom process",
+    "section": "Utils",
+    "text": "Utils\n\nDelete entities\n\npurview_client.delete_typedefs(\n    entityDefs=[\n        {\"name\": \"myCustomProcess\"},\n    ]\n)"
+  },
+  {
     "objectID": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html",
     "href": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html",
     "title": "Chef Recipe | Extractive summarization with Azure Text Analytics",
@@ -119,144 +203,11 @@
     "text": "Results\n\nfor sx in summary_text:\n    for s in sx.sentences:\n        print(s.text)\n\nA computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically.\nThese programs enable computers to perform a wide range of tasks.\nA broad range of industrial and consumer products use computers as control systems."
   },
   {
-    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html",
-    "href": "posts/notebooks/2021-12-14-nb_purview_01.html",
-    "title": "Purview | Custom process",
-    "section": "",
-    "text": "%pip install pyapacheatlas\n\nCollecting pyapacheatlas\n  Downloading pyapacheatlas-0.10.0-py3-none-any.whl (68 kB)\n     |████████████████████████████████| 68 kB 1.9 MB/s             \nCollecting openpyxl&gt;=3.0\n  Downloading openpyxl-3.0.9-py2.py3-none-any.whl (242 kB)\n     |████████████████████████████████| 242 kB 3.8 MB/s            \nRequirement already satisfied: requests&gt;=2.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from pyapacheatlas) (2.26.0)\nCollecting et-xmlfile\n  Using cached et_xmlfile-1.1.0-py3-none-any.whl (4.7 kB)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2021.10.8)\nRequirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2.0.7)\nRequirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (1.26.7)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (3.3)\nInstalling collected packages: et-xmlfile, openpyxl, pyapacheatlas\nSuccessfully installed et-xmlfile-1.1.0 openpyxl-3.0.9 pyapacheatlas-0.10.0\nNote: you may need to restart the kernel to use updated packages."
-  },
-  {
-    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#prerequisites",
-    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#prerequisites",
-    "title": "Purview | Custom process",
-    "section": "",
-    "text": "%pip install pyapacheatlas\n\nCollecting pyapacheatlas\n  Downloading pyapacheatlas-0.10.0-py3-none-any.whl (68 kB)\n     |████████████████████████████████| 68 kB 1.9 MB/s             \nCollecting openpyxl&gt;=3.0\n  Downloading openpyxl-3.0.9-py2.py3-none-any.whl (242 kB)\n     |████████████████████████████████| 242 kB 3.8 MB/s            \nRequirement already satisfied: requests&gt;=2.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from pyapacheatlas) (2.26.0)\nCollecting et-xmlfile\n  Using cached et_xmlfile-1.1.0-py3-none-any.whl (4.7 kB)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2021.10.8)\nRequirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2.0.7)\nRequirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (1.26.7)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (3.3)\nInstalling collected packages: et-xmlfile, openpyxl, pyapacheatlas\nSuccessfully installed et-xmlfile-1.1.0 openpyxl-3.0.9 pyapacheatlas-0.10.0\nNote: you may need to restart the kernel to use updated packages."
-  },
-  {
-    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#code",
-    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#code",
-    "title": "Purview | Custom process",
-    "section": "Code",
-    "text": "Code\n\nImport\n\nfrom pyapacheatlas.auth import ServicePrincipalAuthentication\nfrom pyapacheatlas.core.client import PurviewClient\nfrom pyapacheatlas.core.entity import AtlasEntity\nfrom pyapacheatlas.core.typedef import EntityTypeDef\nfrom pyapacheatlas.core.util import GuidTracker\nfrom pyapacheatlas.core.typedef import ChildEndDef\nfrom pyapacheatlas.core.typedef import RelationshipTypeDef\nfrom pyapacheatlas.core.typedef import ParentEndDef\nfrom pyapacheatlas.core.typedef import Cardinality\nfrom pyapacheatlas.core.typedef import AtlasAttributeDef\nfrom pyapacheatlas.core import AtlasProcess\n\n\n\nSettings\n\ntenant_id = \"\"\nclient_id = \"\"\nclient_secret = \"\"\npurview_name = \"\"\n\n\n\nClients\n\natlas_sp = ServicePrincipalAuthentication(\n    tenant_id=tenant_id,\n    client_id=client_id,\n    client_secret=client_secret\n)\n\n\npurview_client = PurviewClient(\n    account_name=purview_name,\n    authentication=atlas_sp\n)\n\n\n\nEntities\n\nguid_tracker = GuidTracker()\n\n\ncustom_dataset = purview_client.upload_typedefs(\n    entityDefs=[\n        EntityTypeDef(\n            name=\"myCustomDataSet\",\n            superTypes=[\"DataSet\"]\n        )\n    ],\n    force_update=True\n)\n\n\nmyCustomDataset01 = AtlasEntity(\n    name=\"myCustomDataset01\",\n    typeName=\"myCustomDataSet\",\n    qualified_name=\"pyapacheatlas://mycustomdataset01\",\n    guid=guid_tracker.get_guid()\n)\nmyCustomDataset02 = AtlasEntity(\n    name=\"myCustomDataset02\",\n    typeName=\"myCustomDataSet\",\n    qualified_name=\"pyapacheatlas://mycustomdataset02\",\n    guid=guid_tracker.get_guid()\n)\n\n\nmyCustomProcess01 = AtlasProcess(\n    name=\"myCustomProcess01\",\n    typeName=\"Process\",\n    qualified_name=\"pyapacheatlas://mycustomprocess01\",\n    inputs=[myCustomDataset01],\n    outputs=[myCustomDataset02],\n    guid=guid_tracker.get_guid()\n)\n\n\nresults = purview_client.upload_entities(\n    batch=[myCustomDataset01, myCustomDataset02, myCustomProcess01]\n)"
-  },
-  {
-    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#result",
-    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#result",
-    "title": "Purview | Custom process",
-    "section": "Result",
-    "text": "Result\n\n\n\nCall graph"
-  },
-  {
-    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#utils",
-    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#utils",
-    "title": "Purview | Custom process",
-    "section": "Utils",
-    "text": "Utils\n\nDelete entities\n\npurview_client.delete_typedefs(\n    entityDefs=[\n        {\"name\": \"myCustomProcess\"},\n    ]\n)"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this blog\nThis is a blog"
-  },
-  {
-    "objectID": "posts/notebooks/LLM on Android.html",
-    "href": "posts/notebooks/LLM on Android.html",
-    "title": "How to Run Ollama on Your Android Phone",
-    "section": "",
-    "text": "In an interconnected digital world, automation has never been more relevant. This tutorial walks you through the process of installing certain applications namely F-droid, Termux & setting up Ollama, which is less known but equally efficient in machine learning models for your smartphone. That’s right - you can have your machine learning models directly on your Android phone!\n\n\nF-Droid is an installable catalog of FOSS (Free and Open Source Software) application for the Android platform. To install F-Droid, follow the instructions provided on their official website or find it directly in the Google Play Store.\ninstall f-droid\n\n\n\nTermux is a terminal emulator for Android that works directly without any rooting or setup required. It embodies a minimal base system providing you with a complete Linux system in a reduced environment.\ninstall termux\nNow let’s get your Termux package up to date:\npkg update\npkg upgrade\n\n\n\nproot-distro is a Termux plugin that helps you to install Linux distributions in a Termux environment.\npkg install proot-distro\nTo login to Debian, use the proot-distro login command:\npd login debian\n\n\n\nTmux is a terminal multiplexer, it lets you switch easily between several programs in one terminal.\nFirst, update your apt package and then upgrade it:\napt update\napt upgrade\nNow for installing tmux:\napt install tmux\n\n\n\nOllama is an AI-infrastructure startup that enables AI teams to deploy their machine learning models directly.\nTo install Ollama, use the curl command to fetch the install.sh script from the ollama website:\ncurl -fsSL https://ollama.com/install.sh | sh\n\n\n\nOnce the installation is completed, you can then create a new tmux window and serve it with Ollama.\nCreate a new tmux session:\ntmux new -s llm\nThen run Ollama:\nollama serve\nNext, you’ll need to create a new pane in your tmux window. To do this, use the following commands. The quotes mean that it will split your window horizontally:\nctrl+b \"\nFinally, you can run Ollama’s model:\nollama run gemma:2b\n\n\n\nWith all the steps accurately followed and implemented, you’re now equipped to test your models. Ollama helps you implement and test your machine learning models with utmost ease.\nMoore’s law is a pretty amazing phenomenon that has allowed us to witness the current level of technological advancements. It brings the power of machine learning models right at your fingertips, literally, on your smartphone. It all starts with setting yourself up with F-Droid and Termux. Happy coding!"
-  },
-  {
-    "objectID": "posts/notebooks/LLM on Android.html#step-1-installing-f-droid",
-    "href": "posts/notebooks/LLM on Android.html#step-1-installing-f-droid",
-    "title": "How to Run Ollama on Your Android Phone",
-    "section": "",
-    "text": "F-Droid is an installable catalog of FOSS (Free and Open Source Software) application for the Android platform. To install F-Droid, follow the instructions provided on their official website or find it directly in the Google Play Store.\ninstall f-droid"
-  },
-  {
-    "objectID": "posts/notebooks/LLM on Android.html#step-2-installing-termux",
-    "href": "posts/notebooks/LLM on Android.html#step-2-installing-termux",
-    "title": "How to Run Ollama on Your Android Phone",
-    "section": "",
-    "text": "Termux is a terminal emulator for Android that works directly without any rooting or setup required. It embodies a minimal base system providing you with a complete Linux system in a reduced environment.\ninstall termux\nNow let’s get your Termux package up to date:\npkg update\npkg upgrade"
-  },
-  {
-    "objectID": "posts/notebooks/LLM on Android.html#step-3-installing-proot-distro",
-    "href": "posts/notebooks/LLM on Android.html#step-3-installing-proot-distro",
-    "title": "How to Run Ollama on Your Android Phone",
-    "section": "",
-    "text": "proot-distro is a Termux plugin that helps you to install Linux distributions in a Termux environment.\npkg install proot-distro\nTo login to Debian, use the proot-distro login command:\npd login debian"
-  },
-  {
-    "objectID": "posts/notebooks/LLM on Android.html#step-4-installing-tmux",
-    "href": "posts/notebooks/LLM on Android.html#step-4-installing-tmux",
-    "title": "How to Run Ollama on Your Android Phone",
-    "section": "",
-    "text": "Tmux is a terminal multiplexer, it lets you switch easily between several programs in one terminal.\nFirst, update your apt package and then upgrade it:\napt update\napt upgrade\nNow for installing tmux:\napt install tmux"
-  },
-  {
-    "objectID": "posts/notebooks/LLM on Android.html#step-5-installing-ollama",
-    "href": "posts/notebooks/LLM on Android.html#step-5-installing-ollama",
-    "title": "How to Run Ollama on Your Android Phone",
-    "section": "",
-    "text": "Ollama is an AI-infrastructure startup that enables AI teams to deploy their machine learning models directly.\nTo install Ollama, use the curl command to fetch the install.sh script from the ollama website:\ncurl -fsSL https://ollama.com/install.sh | sh"
-  },
-  {
-    "objectID": "posts/notebooks/LLM on Android.html#step-6-setting-up-tmux-window-and-ollama",
-    "href": "posts/notebooks/LLM on Android.html#step-6-setting-up-tmux-window-and-ollama",
-    "title": "How to Run Ollama on Your Android Phone",
-    "section": "",
-    "text": "Once the installation is completed, you can then create a new tmux window and serve it with Ollama.\nCreate a new tmux session:\ntmux new -s llm\nThen run Ollama:\nollama serve\nNext, you’ll need to create a new pane in your tmux window. To do this, use the following commands. The quotes mean that it will split your window horizontally:\nctrl+b \"\nFinally, you can run Ollama’s model:\nollama run gemma:2b"
-  },
-  {
-    "objectID": "posts/notebooks/LLM on Android.html#step-7-model-testing",
-    "href": "posts/notebooks/LLM on Android.html#step-7-model-testing",
-    "title": "How to Run Ollama on Your Android Phone",
-    "section": "",
-    "text": "With all the steps accurately followed and implemented, you’re now equipped to test your models. Ollama helps you implement and test your machine learning models with utmost ease.\nMoore’s law is a pretty amazing phenomenon that has allowed us to witness the current level of technological advancements. It brings the power of machine learning models right at your fingertips, literally, on your smartphone. It all starts with setting yourself up with F-Droid and Termux. Happy coding!"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "",
-    "text": "Call graph"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "",
-    "text": "Call graph"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "Configuration",
-    "text": "Configuration\n\nParameters\n\ngist_user = 'davidefornelli'\ngist_chef_id = '1bc116f05d09e598a1a2dcfbb0e2fc22'\ngist_ingredients_id = '5c75b7cdea330d15dcd93adbb08648c3'\ningredients_to_import = [\n    (gist_ingredients_id, 'joking.py')\n]"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "Configure environment",
-    "text": "Configure environment\n\n%pip install httpimport\n\nRequirement already satisfied: httpimport in /home/daforne/repos/github/davidefornelli/cookbook/.venv/lib/python3.7/site-packages (0.7.2)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nImport chef\n\nimport httpimport\n\nwith httpimport.remote_repo(\n    ['chef'],\n    f\"https://gist.githubusercontent.com/{gist_user}/{gist_chef_id}/raw\"\n):\n    import chef\n\n\n\n\nImport ingredients\n\ndef ingredients_import(ingredients):\n    for ingredient in ingredients:\n        mod, package = chef.process_gist_ingredient(\n            gist_id=ingredient[0],\n            gist_file=ingredient[1],\n            gist_user=gist_user\n        )\n        globals()[package] = mod\n\n\ningredients_import(ingredients=ingredients_to_import)\n\nCollecting pyjokes\n  Using cached pyjokes-0.6.0-py2.py3-none-any.whl (26 kB)\nInstalling collected packages: pyjokes\nSuccessfully installed pyjokes-0.6.0"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "Tell me a joke",
-    "text": "Tell me a joke\n\njoking.tell_me_a_joke()\n\nHow many programmers does it take to kill a cockroach? Two: one holds, the other installs Windows on it."
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "AI Blog",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nHow to Run Ollama on Your Android Phone\n\n\n\n\n\n\nllm\n\n\nollama\n\n\nandroid\n\n\n\nLearn how to install and run Ollama, a powerful tool for serving LLMs, straight on your Android device.\n\n\n\n\n\nApr 23, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nInstalling Ollama on Android Using Termux: A Step-by-Step Guide\n\n\n\n\n\n\nllm\n\n\nollama\n\n\nandroid\n\n\n\nUnleash the Power of AI on Your Android Device with Termux: A Comprehensive Guide to Installing Ollama\n\n\n\n\n\nApr 23, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "temp/notebooks/2021-11-05-read_pdf.html",
