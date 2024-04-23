@@ -161,6 +161,62 @@
     "text": "About this blog\nThis is a blog"
   },
   {
+    "objectID": "posts/notebooks/LLM on Android.html",
+    "href": "posts/notebooks/LLM on Android.html",
+    "title": "How to Run Ollama on Your Android Phone",
+    "section": "",
+    "text": "In an interconnected digital world, automation has never been more relevant. This tutorial walks you through the process of installing certain applications namely F-droid, Termux & setting up Ollama, which is less known but equally efficient in machine learning models for your smartphone. That’s right - you can have your machine learning models directly on your Android phone!\n\n\nF-Droid is an installable catalog of FOSS (Free and Open Source Software) application for the Android platform. To install F-Droid, follow the instructions provided on their official website or find it directly in the Google Play Store.\ninstall f-droid\n\n\n\nTermux is a terminal emulator for Android that works directly without any rooting or setup required. It embodies a minimal base system providing you with a complete Linux system in a reduced environment.\ninstall termux\nNow let’s get your Termux package up to date:\npkg update\npkg upgrade\n\n\n\nproot-distro is a Termux plugin that helps you to install Linux distributions in a Termux environment.\npkg install proot-distro\nTo login to Debian, use the proot-distro login command:\npd login debian\n\n\n\nTmux is a terminal multiplexer, it lets you switch easily between several programs in one terminal.\nFirst, update your apt package and then upgrade it:\napt update\napt upgrade\nNow for installing tmux:\napt install tmux\n\n\n\nOllama is an AI-infrastructure startup that enables AI teams to deploy their machine learning models directly.\nTo install Ollama, use the curl command to fetch the install.sh script from the ollama website:\ncurl -fsSL https://ollama.com/install.sh | sh\n\n\n\nOnce the installation is completed, you can then create a new tmux window and serve it with Ollama.\nCreate a new tmux session:\ntmux new -s llm\nThen run Ollama:\nollama serve\nNext, you’ll need to create a new pane in your tmux window. To do this, use the following commands. The quotes mean that it will split your window horizontally:\nctrl+b \"\nFinally, you can run Ollama’s model:\nollama run gemma:2b\n\n\n\nWith all the steps accurately followed and implemented, you’re now equipped to test your models. Ollama helps you implement and test your machine learning models with utmost ease.\nMoore’s law is a pretty amazing phenomenon that has allowed us to witness the current level of technological advancements. It brings the power of machine learning models right at your fingertips, literally, on your smartphone. It all starts with setting yourself up with F-Droid and Termux. Happy coding!"
+  },
+  {
+    "objectID": "posts/notebooks/LLM on Android.html#step-1-installing-f-droid",
+    "href": "posts/notebooks/LLM on Android.html#step-1-installing-f-droid",
+    "title": "How to Run Ollama on Your Android Phone",
+    "section": "",
+    "text": "F-Droid is an installable catalog of FOSS (Free and Open Source Software) application for the Android platform. To install F-Droid, follow the instructions provided on their official website or find it directly in the Google Play Store.\ninstall f-droid"
+  },
+  {
+    "objectID": "posts/notebooks/LLM on Android.html#step-2-installing-termux",
+    "href": "posts/notebooks/LLM on Android.html#step-2-installing-termux",
+    "title": "How to Run Ollama on Your Android Phone",
+    "section": "",
+    "text": "Termux is a terminal emulator for Android that works directly without any rooting or setup required. It embodies a minimal base system providing you with a complete Linux system in a reduced environment.\ninstall termux\nNow let’s get your Termux package up to date:\npkg update\npkg upgrade"
+  },
+  {
+    "objectID": "posts/notebooks/LLM on Android.html#step-3-installing-proot-distro",
+    "href": "posts/notebooks/LLM on Android.html#step-3-installing-proot-distro",
+    "title": "How to Run Ollama on Your Android Phone",
+    "section": "",
+    "text": "proot-distro is a Termux plugin that helps you to install Linux distributions in a Termux environment.\npkg install proot-distro\nTo login to Debian, use the proot-distro login command:\npd login debian"
+  },
+  {
+    "objectID": "posts/notebooks/LLM on Android.html#step-4-installing-tmux",
+    "href": "posts/notebooks/LLM on Android.html#step-4-installing-tmux",
+    "title": "How to Run Ollama on Your Android Phone",
+    "section": "",
+    "text": "Tmux is a terminal multiplexer, it lets you switch easily between several programs in one terminal.\nFirst, update your apt package and then upgrade it:\napt update\napt upgrade\nNow for installing tmux:\napt install tmux"
+  },
+  {
+    "objectID": "posts/notebooks/LLM on Android.html#step-5-installing-ollama",
+    "href": "posts/notebooks/LLM on Android.html#step-5-installing-ollama",
+    "title": "How to Run Ollama on Your Android Phone",
+    "section": "",
+    "text": "Ollama is an AI-infrastructure startup that enables AI teams to deploy their machine learning models directly.\nTo install Ollama, use the curl command to fetch the install.sh script from the ollama website:\ncurl -fsSL https://ollama.com/install.sh | sh"
+  },
+  {
+    "objectID": "posts/notebooks/LLM on Android.html#step-6-setting-up-tmux-window-and-ollama",
+    "href": "posts/notebooks/LLM on Android.html#step-6-setting-up-tmux-window-and-ollama",
+    "title": "How to Run Ollama on Your Android Phone",
+    "section": "",
+    "text": "Once the installation is completed, you can then create a new tmux window and serve it with Ollama.\nCreate a new tmux session:\ntmux new -s llm\nThen run Ollama:\nollama serve\nNext, you’ll need to create a new pane in your tmux window. To do this, use the following commands. The quotes mean that it will split your window horizontally:\nctrl+b \"\nFinally, you can run Ollama’s model:\nollama run gemma:2b"
+  },
+  {
+    "objectID": "posts/notebooks/LLM on Android.html#step-7-model-testing",
+    "href": "posts/notebooks/LLM on Android.html#step-7-model-testing",
+    "title": "How to Run Ollama on Your Android Phone",
+    "section": "",
+    "text": "With all the steps accurately followed and implemented, you’re now equipped to test your models. Ollama helps you implement and test your machine learning models with utmost ease.\nMoore’s law is a pretty amazing phenomenon that has allowed us to witness the current level of technological advancements. It brings the power of machine learning models right at your fingertips, literally, on your smartphone. It all starts with setting yourself up with F-Droid and Termux. Happy coding!"
+  },
+  {
     "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
     "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
     "title": "Chef Recipe | How to cook a joke",
@@ -200,7 +256,7 @@
     "href": "index.html",
     "title": "AI Blog",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nHow to Run Ollama on Your Android Phone\n\n\n\n\n\n\nllm\n\n\nollama\n\n\nandroid\n\n\n\nLearn how to install and run Ollama, a powerful tool for serving LLMs, straight on your Android device.\n\n\n\n\n\nApr 23, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "temp/notebooks/2021-11-05-read_pdf.html",

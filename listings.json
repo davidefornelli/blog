@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/notebooks/LLM on Android.html",
       "/posts/notebooks/2021-12-14-nb_purview_01.html",
       "/posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
       "/posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html"

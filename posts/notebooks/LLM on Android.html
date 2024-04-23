@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2024-04-23">
+<meta name="description" content="Learn how to install and run Ollama, a powerful tool for serving LLMs, straight on your Android device.">
 
-<title>Davide Fornelli - AI Blog</title>
+<title>Davide Fornelli - How to Run Ollama on Your Android Phone</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,29 +22,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,35 +104,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-V41FPLBXSF"></script>
 
 <script type="text/javascript">
@@ -109,35 +114,6 @@ gtag('js', new Date());
 gtag('config', 'G-V41FPLBXSF', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -148,10 +124,10 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/batman_icon.png" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/batman_icon.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Davide Fornelli</span>
     </a>
   </div>
@@ -162,7 +138,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -186,222 +162,124 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">AI Blog</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">How to Run Ollama on Your Android Phone</h1>
+                  <div>
+        <div class="description">
+          Learn how to install and run Ollama, a powerful tool for serving LLMs, straight on your Android device.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">llm</div>
+                <div class="quarto-category">ollama</div>
+                <div class="quarto-category">android</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 23, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="android">android <span class="quarto-category-count">(1)</span></div><div class="category" data-category="azure">azure <span class="quarto-category-count">(1)</span></div><div class="category" data-category="azuretextanalytics">azuretextanalytics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="jupyter">jupyter <span class="quarto-category-count">(3)</span></div><div class="category" data-category="llm">llm <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ollama">ollama <span class="quarto-category-count">(1)</span></div><div class="category" data-category="purview">purview <span class="quarto-category-count">(1)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(3)</span></div><div class="category" data-category="recipe">recipe <span class="quarto-category-count">(2)</span></div></div></div>
-<!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
-
-
-
-
-
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#how-to-set-up-your-system-with-f-droid-termux-and-ollama" id="toc-how-to-set-up-your-system-with-f-droid-termux-and-ollama" class="nav-link active" data-scroll-target="#how-to-set-up-your-system-with-f-droid-termux-and-ollama">How to Set Up Your System with F-Droid, Termux and Ollama</a>
+  <ul class="collapse">
+  <li><a href="#step-1-installing-f-droid" id="toc-step-1-installing-f-droid" class="nav-link" data-scroll-target="#step-1-installing-f-droid">Step 1: Installing F-Droid</a></li>
+  <li><a href="#step-2-installing-termux" id="toc-step-2-installing-termux" class="nav-link" data-scroll-target="#step-2-installing-termux">Step 2: Installing Termux</a></li>
+  <li><a href="#step-3-installing-proot-distro" id="toc-step-3-installing-proot-distro" class="nav-link" data-scroll-target="#step-3-installing-proot-distro">Step 3: Installing proot-distro</a></li>
+  <li><a href="#step-4-installing-tmux" id="toc-step-4-installing-tmux" class="nav-link" data-scroll-target="#step-4-installing-tmux">Step 4: Installing Tmux</a></li>
+  <li><a href="#step-5-installing-ollama" id="toc-step-5-installing-ollama" class="nav-link" data-scroll-target="#step-5-installing-ollama">Step 5: Installing Ollama</a></li>
+  <li><a href="#step-6-setting-up-tmux-window-and-ollama" id="toc-step-6-setting-up-tmux-window-and-ollama" class="nav-link" data-scroll-target="#step-6-setting-up-tmux-window-and-ollama">Step 6: Setting Up Tmux Window and Ollama</a></li>
+  <li><a href="#step-7-model-testing" id="toc-step-7-model-testing" class="nav-link" data-scroll-target="#step-7-model-testing">Step 7: Model Testing</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="llm,ollama,android" data-listing-date-sort="1713830400000" data-listing-file-modified-sort="1713889881426" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="403">
-<div class="thumbnail">
-<p><a href="./posts/notebooks/LLM on Android.html" class="no-external"></a></p><a href="./posts/notebooks/LLM on Android.html" class="no-external">
-<p><img src="./posts/notebooks/images/purview_custom_process.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/notebooks/LLM on Android.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/notebooks/LLM on Android.html" class="no-external">How to Run Ollama on Your Android Phone</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/notebooks/LLM on Android.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
-llm
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('ollama'); return false;">
-ollama
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('android'); return false;">
-android
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/notebooks/LLM on Android.html" class="no-external">Learn how to install and run Ollama, a powerful tool for serving LLMs, straight on your Android device.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/notebooks/LLM on Android.html" class="no-external">
-<div class="listing-date">
-Apr 23, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="purview,python,jupyter" data-listing-date-sort="1639440000000" data-listing-file-modified-sort="1713889881426" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="11">
-<div class="thumbnail">
-<p><a href="./posts/notebooks/2021-12-14-nb_purview_01.html" class="no-external"></a></p><a href="./posts/notebooks/2021-12-14-nb_purview_01.html" class="no-external">
-<p><img src="./posts/notebooks/images/purview_custom_process.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/notebooks/2021-12-14-nb_purview_01.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/notebooks/2021-12-14-nb_purview_01.html" class="no-external">Purview | Custom process</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/notebooks/2021-12-14-nb_purview_01.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('purview'); return false;">
-purview
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyter'); return false;">
-jupyter
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/notebooks/2021-12-14-nb_purview_01.html" class="no-external">How to create a custom Purview dataset and process with python</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/notebooks/2021-12-14-nb_purview_01.html" class="no-external">
-<div class="listing-date">
-Dec 14, 2021
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="recipe,python,jupyter" data-listing-date-sort="1637193600000" data-listing-file-modified-sort="1713889881426" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14">
-<div class="thumbnail">
-<p><a href="./posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html" class="no-external"></a></p><a href="./posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html" class="no-external">
-<p><img src="./posts/notebooks/images/jokes.svg" class="thumbnail-image"></p>
-</a><p><a href="./posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html" class="no-external">Chef Recipe | How to cook a joke</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('recipe'); return false;">
-recipe
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyter'); return false;">
-jupyter
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html" class="no-external">A simple example to learn how to use Chef and it’s ingredients</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html" class="no-external">
-<div class="listing-date">
-Nov 18, 2021
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="recipe,azuretextanalytics,azure,python,jupyter" data-listing-date-sort="1636588800000" data-listing-file-modified-sort="1713889881426" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="24">
-<div class="thumbnail">
-<p><a href="./posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html" class="no-external"></a></p><a href="./posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html" class="no-external">
-<p><img src="./posts/notebooks/images/recipe_cs_summary_text_horizontal.svg" class="thumbnail-image"></p>
-</a><p><a href="./posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html" class="no-external">Chef Recipe | Extractive summarization with Azure Text Analytics</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('recipe'); return false;">
-recipe
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('azuretextanalytics'); return false;">
-azuretextanalytics
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('azure'); return false;">
-azure
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyter'); return false;">
-jupyter
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html" class="no-external">Use Chef to create summaries with Azure</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html" class="no-external">
-<div class="listing-date">
-Nov 11, 2021
-</div>
-<div class="listing-author">
-Davide Fornelli
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="how-to-set-up-your-system-with-f-droid-termux-and-ollama" class="level1">
+<h1>How to Set Up Your System with F-Droid, Termux and Ollama</h1>
+<p>In an interconnected digital world, automation has never been more relevant. This tutorial walks you through the process of installing certain applications namely F-droid, Termux &amp; setting up Ollama, which is less known but equally efficient in machine learning models for your smartphone. That’s right - you can have your machine learning models directly on your Android phone!</p>
+<section id="step-1-installing-f-droid" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-installing-f-droid">Step 1: Installing F-Droid</h2>
+<p>F-Droid is an installable catalog of FOSS (Free and Open Source Software) application for the Android platform. To install F-Droid, follow the instructions provided on their official website or find it directly in the Google Play Store.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> f-droid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-2-installing-termux" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-installing-termux">Step 2: Installing Termux</h2>
+<p>Termux is a terminal emulator for Android that works directly without any rooting or setup required. It embodies a minimal base system providing you with a complete Linux system in a reduced environment.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> termux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now let’s get your Termux package up to date:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> update</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> upgrade</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-3-installing-proot-distro" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-installing-proot-distro">Step 3: Installing proot-distro</h2>
+<p>proot-distro is a Termux plugin that helps you to install Linux distributions in a Termux environment.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pkg</span> install proot-distro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To login to Debian, use the proot-distro login command:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pd</span> login debian</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-4-installing-tmux" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-installing-tmux">Step 4: Installing Tmux</h2>
+<p>Tmux is a terminal multiplexer, it lets you switch easily between several programs in one terminal.</p>
+<p>First, update your apt package and then upgrade it:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> update</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> upgrade</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now for installing tmux:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install tmux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-5-installing-ollama" class="level2">
+<h2 class="anchored" data-anchor-id="step-5-installing-ollama">Step 5: Installing Ollama</h2>
+<p>Ollama is an AI-infrastructure startup that enables AI teams to deploy their machine learning models directly.</p>
+<p>To install Ollama, use the curl command to fetch the install.sh script from the ollama website:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://ollama.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-6-setting-up-tmux-window-and-ollama" class="level2">
+<h2 class="anchored" data-anchor-id="step-6-setting-up-tmux-window-and-ollama">Step 6: Setting Up Tmux Window and Ollama</h2>
+<p>Once the installation is completed, you can then create a new tmux window and serve it with Ollama.</p>
+<p>Create a new tmux session:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span> new <span class="at">-s</span> llm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then run Ollama:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> serve</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, you’ll need to create a new pane in your tmux window. To do this, use the following commands. The quotes mean that it will split your window horizontally:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ctrl+b</span> <span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Finally, you can run Ollama’s model:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> run gemma:2b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-7-model-testing" class="level2">
+<h2 class="anchored" data-anchor-id="step-7-model-testing">Step 7: Model Testing</h2>
+<p>With all the steps accurately followed and implemented, you’re now equipped to test your models. Ollama helps you implement and test your machine learning models with utmost ease.</p>
+<p>Moore’s law is a pretty amazing phenomenon that has allowed us to witness the current level of technological advancements. It brings the power of machine learning models right at your fingertips, literally, on your smartphone. It all starts with setting yourself up with F-Droid and Termux. Happy coding!</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
