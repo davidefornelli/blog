@@ -2,6 +2,8 @@ on:
   workflow_dispatch:
   push:
     branches: master
+    paths:
+      - 'posts/**'
 
 name: Quarto Publish
 
