@@ -1,17 +1,10 @@
 [
   {
-    "objectID": "temp/notebooks/2021-11-05-read_pdf.html",
-    "href": "temp/notebooks/2021-11-05-read_pdf.html",
-    "title": "“Extract text from pdf”",
+    "objectID": "temp/notebooks/2021-11-04-azure_summarization01 copy.html",
+    "href": "temp/notebooks/2021-11-04-azure_summarization01 copy.html",
+    "title": "“Azure Text Summarization”",
     "section": "",
-    "text": "“How to use extract text from a pdf”"
-  },
-  {
-    "objectID": "temp/notebooks/2021-11-05-read_pdf.html#packages",
-    "href": "temp/notebooks/2021-11-05-read_pdf.html#packages",
-    "title": "“Extract text from pdf”",
-    "section": "Packages",
-    "text": "Packages\n\npdfplumber\nUnidecode\n\n\n%pip install pdfplumber Unidecode\n\n\nfrom typing import List\nimport pdfplumber\nfrom unidecode import unidecode\n\n\ndef pdf_parser(\n    filepath: str,\n    x_tolerance=1,\n    y_tolerance=1\n) -&gt; List[str]:\n    texts = []\n    with pdfplumber.open(filepath) as pdf:\n        for page in pdf.pages:\n            texts.append(unidecode(page.extract_text(x_tolerance=x_tolerance, y_tolerance=y_tolerance)))\n    return texts\n\n\npdf_texts = pdf_parser(filepath='my_sample.pdf')\nprint(pdf_texts)"
+    "text": "“How to use Azure Text Summarization with PDF, TXT and simple text”\n\n\ntoc: false\nbranch: master\nbadges: true\ncomments: true\ncategories: [azure, cognitive services, summarization]\nhide: true\nsearch_exclude: false\nmetadata_key1: metadata_value1\nmetadata_key2: metadata_value2\n\n\n%pip install azure-ai-textanalytics pdfplumber Unidecode python-dotenv\n\n\nfrom typing import List\nimport pdfplumber\nfrom azure.core.credentials import AzureKeyCredential\nfrom azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.ai.textanalytics import ExtractSummaryAction\nfrom dotenv import load_dotenv\nimport os\nfrom unidecode import unidecode\n\n\nDOTENV_FILEPATH = ''\nCS_ENDPOINT = os.getenv('CV_ENDPOINT')\nCS_KEY = os.getenv('CV_KEY')\n\n\n\n# https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/textanalytics/azure-ai-textanalytics/samples/sample_extract_summary.py\n\ndef pdf_parser(\n    filepath: str,\n    x_tolerance=1,\n    y_tolerance=1\n) -&gt; List[str]:\n    texts = []\n\n    with pdfplumber.open(filepath) as pdf:\n        for page in pdf.pages:\n            texts.append(unidecode(page.extract_text(x_tolerance=x_tolerance, y_tolerance=y_tolerance)))\n    return texts\n\n\ndef split_in_chunks(lst, chunk_size: int):\n    chunked_list = list()\n    for i in range(0, len(lst), chunk_size):\n        chunked_list.append(lst[i:i+chunk_size])\n    return chunked_list\n\n\ndef az_summary(\n    texts: List[str],\n    cs_endpoint: str,\n    cs_key: str,\n    language: str\n):\n    az_doc = []\n    for i in range(len(texts)):\n        doc = {\"id\": i, \"language\": language, \"text\": texts[i]}\n        az_doc.append(doc)\n        break\n\n    text_analytics_client = TextAnalyticsClient(\n        endpoint=cs_endpoint,\n        credential=AzureKeyCredential(cs_key),\n    )\n\n    poller = text_analytics_client.begin_analyze_actions(\n        documents=texts,\n        actions=[\n            ExtractSummaryAction(order_by='rank'),\n        ],\n    )\n\n    extract_summary_results = []\n\n    document_results = poller.result()\n    for result in document_results:\n        for ex in result:\n        # print(result[0])\n            if not ex['is_error']:\n                extract_summary_results.append(ex)\n    return extract_summary_results\n\n\ndef summarize(summaries, thr=0):\n    sentences = []\n    for sr in summaries:\n        for sentence in sr.sentences:\n            if sentence.rank_score &gt;= thr:\n                sentences.append(sentence.text)\n    sentences = list(set(sentences))\n    return sentences\n\n\ndef summarize_pdf(\n    filepath: str,\n    cs_endpoint: str,\n    cs_key: str,\n    language: str,\n    thr=0\n):\n    pdf_text = pdf_parser(filepath=filepath)\n    chunks = split_in_chunks(\n        lst=pdf_text,\n        chunk_size=25\n    )\n    summaries = []\n    for texts in chunks:\n        st = az_summary(\n            texts=texts,\n            cs_endpoint=cs_endpoint,\n            cs_key=cs_key,\n            language=language\n        )\n        summaries.extend(st)\n    \n    sentences = summarize(summaries, thr)\n    return sentences\n\n\ndef summarize_txt(\n    filepath: str,\n    cs_endpoint: str,\n    cs_key: str,\n    language: str,\n    thr=0\n):\n    with open(filepath, 'r', encoding='utf-8') as fh:\n        num_list = fh.read()\n    summary = az_summary(\n        texts=[num_list],\n        cs_endpoint=cs_endpoint,\n        cs_key=cs_key,\n        language=language\n    )\n    sentences = summarize(summary, thr)\n    return sentences\n\n\nload_dotenv(DOTENV_FILEPATH)\n\n\nsummary_pdf = summarize_pdf(\n    filepath='my_sample.pdf',\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_pdf)\n\n\nsummary_txt = summarize_txt(\n    filepath='my_sample.txt',\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_txt)\n\n\nsummary_text = az_summary(\n    texts=[\"\"\"My sample text\"\"\"],\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_text)"
   },
   {
     "objectID": "temp/notebooks/1986-01-10-notebook.html",
@@ -82,55 +75,6 @@
     "title": "Fastpages Notebook Blog Post",
     "section": "Footnotes",
     "text": "Footnotes\nYou can have footnotes in notebooks, however the syntax is different compared to markdown documents. This guide provides more detail about this syntax, which looks like this:\n{% raw %}For example, here is a footnote {% fn 1 %}.\nAnd another {% fn 2 %}\n{{ 'This is the footnote.' | fndetail: 1 }}\n{{ 'This is the other footnote. You can even have a [link](www.github.com)!' | fndetail: 2 }}{% endraw %}\nFor example, here is a footnote {% fn 1 %}.\nAnd another {% fn 2 %}\n{{ ‘This is the footnote.’ | fndetail: 1 }} {{ ‘This is the other footnote. You can even have a link!’ | fndetail: 2 }}"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "",
-    "text": "Call graph"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "",
-    "text": "Call graph"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "Configuration",
-    "text": "Configuration\n\nParameters\n\ngist_user = 'davidefornelli'\ngist_chef_id = '1bc116f05d09e598a1a2dcfbb0e2fc22'\ngist_ingredients_id = '5c75b7cdea330d15dcd93adbb08648c3'\ningredients_to_import = [\n    (gist_ingredients_id, 'joking.py')\n]"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "Configure environment",
-    "text": "Configure environment\n\n%pip install httpimport\n\nRequirement already satisfied: httpimport in /home/daforne/repos/github/davidefornelli/cookbook/.venv/lib/python3.7/site-packages (0.7.2)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nImport chef\n\nimport httpimport\n\nwith httpimport.remote_repo(\n    ['chef'],\n    f\"https://gist.githubusercontent.com/{gist_user}/{gist_chef_id}/raw\"\n):\n    import chef\n\n\n\n\nImport ingredients\n\ndef ingredients_import(ingredients):\n    for ingredient in ingredients:\n        mod, package = chef.process_gist_ingredient(\n            gist_id=ingredient[0],\n            gist_file=ingredient[1],\n            gist_user=gist_user\n        )\n        globals()[package] = mod\n\n\ningredients_import(ingredients=ingredients_to_import)\n\nCollecting pyjokes\n  Using cached pyjokes-0.6.0-py2.py3-none-any.whl (26 kB)\nInstalling collected packages: pyjokes\nSuccessfully installed pyjokes-0.6.0"
-  },
-  {
-    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
-    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
-    "title": "Chef Recipe | How to cook a joke",
-    "section": "Tell me a joke",
-    "text": "Tell me a joke\n\njoking.tell_me_a_joke()\n\nHow many programmers does it take to kill a cockroach? Two: one holds, the other installs Windows on it."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "AI Blog",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this blog\nThis is a blog"
   },
   {
     "objectID": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html",
@@ -210,10 +154,66 @@
     "text": "Utils\n\nDelete entities\n\npurview_client.delete_typedefs(\n    entityDefs=[\n        {\"name\": \"myCustomProcess\"},\n    ]\n)"
   },
   {
-    "objectID": "temp/notebooks/2021-11-04-azure_summarization01 copy.html",
-    "href": "temp/notebooks/2021-11-04-azure_summarization01 copy.html",
-    "title": "“Azure Text Summarization”",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "“How to use Azure Text Summarization with PDF, TXT and simple text”\n\n\ntoc: false\nbranch: master\nbadges: true\ncomments: true\ncategories: [azure, cognitive services, summarization]\nhide: true\nsearch_exclude: false\nmetadata_key1: metadata_value1\nmetadata_key2: metadata_value2\n\n\n%pip install azure-ai-textanalytics pdfplumber Unidecode python-dotenv\n\n\nfrom typing import List\nimport pdfplumber\nfrom azure.core.credentials import AzureKeyCredential\nfrom azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.ai.textanalytics import ExtractSummaryAction\nfrom dotenv import load_dotenv\nimport os\nfrom unidecode import unidecode\n\n\nDOTENV_FILEPATH = ''\nCS_ENDPOINT = os.getenv('CV_ENDPOINT')\nCS_KEY = os.getenv('CV_KEY')\n\n\n\n# https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/textanalytics/azure-ai-textanalytics/samples/sample_extract_summary.py\n\ndef pdf_parser(\n    filepath: str,\n    x_tolerance=1,\n    y_tolerance=1\n) -&gt; List[str]:\n    texts = []\n\n    with pdfplumber.open(filepath) as pdf:\n        for page in pdf.pages:\n            texts.append(unidecode(page.extract_text(x_tolerance=x_tolerance, y_tolerance=y_tolerance)))\n    return texts\n\n\ndef split_in_chunks(lst, chunk_size: int):\n    chunked_list = list()\n    for i in range(0, len(lst), chunk_size):\n        chunked_list.append(lst[i:i+chunk_size])\n    return chunked_list\n\n\ndef az_summary(\n    texts: List[str],\n    cs_endpoint: str,\n    cs_key: str,\n    language: str\n):\n    az_doc = []\n    for i in range(len(texts)):\n        doc = {\"id\": i, \"language\": language, \"text\": texts[i]}\n        az_doc.append(doc)\n        break\n\n    text_analytics_client = TextAnalyticsClient(\n        endpoint=cs_endpoint,\n        credential=AzureKeyCredential(cs_key),\n    )\n\n    poller = text_analytics_client.begin_analyze_actions(\n        documents=texts,\n        actions=[\n            ExtractSummaryAction(order_by='rank'),\n        ],\n    )\n\n    extract_summary_results = []\n\n    document_results = poller.result()\n    for result in document_results:\n        for ex in result:\n        # print(result[0])\n            if not ex['is_error']:\n                extract_summary_results.append(ex)\n    return extract_summary_results\n\n\ndef summarize(summaries, thr=0):\n    sentences = []\n    for sr in summaries:\n        for sentence in sr.sentences:\n            if sentence.rank_score &gt;= thr:\n                sentences.append(sentence.text)\n    sentences = list(set(sentences))\n    return sentences\n\n\ndef summarize_pdf(\n    filepath: str,\n    cs_endpoint: str,\n    cs_key: str,\n    language: str,\n    thr=0\n):\n    pdf_text = pdf_parser(filepath=filepath)\n    chunks = split_in_chunks(\n        lst=pdf_text,\n        chunk_size=25\n    )\n    summaries = []\n    for texts in chunks:\n        st = az_summary(\n            texts=texts,\n            cs_endpoint=cs_endpoint,\n            cs_key=cs_key,\n            language=language\n        )\n        summaries.extend(st)\n    \n    sentences = summarize(summaries, thr)\n    return sentences\n\n\ndef summarize_txt(\n    filepath: str,\n    cs_endpoint: str,\n    cs_key: str,\n    language: str,\n    thr=0\n):\n    with open(filepath, 'r', encoding='utf-8') as fh:\n        num_list = fh.read()\n    summary = az_summary(\n        texts=[num_list],\n        cs_endpoint=cs_endpoint,\n        cs_key=cs_key,\n        language=language\n    )\n    sentences = summarize(summary, thr)\n    return sentences\n\n\nload_dotenv(DOTENV_FILEPATH)\n\n\nsummary_pdf = summarize_pdf(\n    filepath='my_sample.pdf',\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_pdf)\n\n\nsummary_txt = summarize_txt(\n    filepath='my_sample.txt',\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_txt)\n\n\nsummary_text = az_summary(\n    texts=[\"\"\"My sample text\"\"\"],\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_text)"
+    "text": "About this blog\nThis is a blog"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "",
+    "text": "Call graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "",
+    "text": "Call graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Configuration",
+    "text": "Configuration\n\nParameters\n\ngist_user = 'davidefornelli'\ngist_chef_id = '1bc116f05d09e598a1a2dcfbb0e2fc22'\ngist_ingredients_id = '5c75b7cdea330d15dcd93adbb08648c3'\ningredients_to_import = [\n    (gist_ingredients_id, 'joking.py')\n]"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Configure environment",
+    "text": "Configure environment\n\n%pip install httpimport\n\nRequirement already satisfied: httpimport in /home/daforne/repos/github/davidefornelli/cookbook/.venv/lib/python3.7/site-packages (0.7.2)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nImport chef\n\nimport httpimport\n\nwith httpimport.remote_repo(\n    ['chef'],\n    f\"https://gist.githubusercontent.com/{gist_user}/{gist_chef_id}/raw\"\n):\n    import chef\n\n\n\n\nImport ingredients\n\ndef ingredients_import(ingredients):\n    for ingredient in ingredients:\n        mod, package = chef.process_gist_ingredient(\n            gist_id=ingredient[0],\n            gist_file=ingredient[1],\n            gist_user=gist_user\n        )\n        globals()[package] = mod\n\n\ningredients_import(ingredients=ingredients_to_import)\n\nCollecting pyjokes\n  Using cached pyjokes-0.6.0-py2.py3-none-any.whl (26 kB)\nInstalling collected packages: pyjokes\nSuccessfully installed pyjokes-0.6.0"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Tell me a joke",
+    "text": "Tell me a joke\n\njoking.tell_me_a_joke()\n\nHow many programmers does it take to kill a cockroach? Two: one holds, the other installs Windows on it."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "AI Blog",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "temp/notebooks/2021-11-05-read_pdf.html",
+    "href": "temp/notebooks/2021-11-05-read_pdf.html",
+    "title": "“Extract text from pdf”",
+    "section": "",
+    "text": "“How to use extract text from a pdf”"
+  },
+  {
+    "objectID": "temp/notebooks/2021-11-05-read_pdf.html#packages",
+    "href": "temp/notebooks/2021-11-05-read_pdf.html#packages",
+    "title": "“Extract text from pdf”",
+    "section": "Packages",
+    "text": "Packages\n\npdfplumber\nUnidecode\n\n\n%pip install pdfplumber Unidecode\n\n\nfrom typing import List\nimport pdfplumber\nfrom unidecode import unidecode\n\n\ndef pdf_parser(\n    filepath: str,\n    x_tolerance=1,\n    y_tolerance=1\n) -&gt; List[str]:\n    texts = []\n    with pdfplumber.open(filepath) as pdf:\n        for page in pdf.pages:\n            texts.append(unidecode(page.extract_text(x_tolerance=x_tolerance, y_tolerance=y_tolerance)))\n    return texts\n\n\npdf_texts = pdf_parser(filepath='my_sample.pdf')\nprint(pdf_texts)"
   }
 ]
