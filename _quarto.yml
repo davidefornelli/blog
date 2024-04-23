@@ -19,10 +19,10 @@ website:
     logo: images/batman_icon.png
     right:
       - about.qmd
-      - icon: github
-        href: https://github.com/davidefornelli/
       - icon: linkedin
         href: https://www.linkedin.com/in/davidefornelli/
+      - icon: github
+        href: https://github.com/davidefornelli/
       # - icon: twitter
       #   href: https://twitter.com/dvdfornelli
   google-analytics: G-V41FPLBXSF
