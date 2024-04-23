@@ -2,12 +2,12 @@
 title: "Installing Ollama on Android Using Termux: A Step-by-Step Guide"
 description: "Unleash the Power of AI on Your Android Device with Termux: A Comprehensive Guide to Installing Ollama"
 date: 2024-04-23
-toc: "true"
+toc: true
 categories:
   - llm
   - ollama
   - android
-hide: "false"
+hide: false
 image: assets/llama_phone_2.png
 ---
 In this blog post, we'll explore how to install and run the Ollama language model on an Android device using Termux, a powerful terminal emulator. This tutorial is designed for users who wish to leverage the capabilities of large language models directly on their mobile devices without the need for a desktop environment.
