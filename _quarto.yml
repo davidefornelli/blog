@@ -2,7 +2,7 @@ project:
   type: website
 
 theme:
-  light: cosmo
+  light: flatly
   dark: darkly
 
 # theme:
@@ -11,6 +11,7 @@ theme:
 
 website:
   title: "Davide Fornelli"
+  favicon: images/blog_favicon.png
   # reader-mode: true
   site-url: https://www.davidefornelli.com
   search: true
@@ -20,8 +21,10 @@ website:
       - about.qmd
       - icon: github
         href: https://github.com/davidefornelli/
-      - icon: twitter
-        href: https://twitter.com/dvdfornelli
+      - icon: linkedin
+        href: https://www.linkedin.com/in/davidefornelli/
+      # - icon: twitter
+      #   href: https://twitter.com/dvdfornelli
   google-analytics: G-V41FPLBXSF
 
 execute: 
