@@ -123,7 +123,42 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this blog\nThis is a blog"
+    "text": "Hello! I’m Davide Fornelli, your go-to Data & AI Strategist and Technical Leader, currently enjoying the vibrant city of Munich, Bavaria, Germany. 🌍 My professional journey is fueled by a deep passion for unraveling complex data puzzles and leveraging the power of AI to revolutionize how businesses operate. 🚀"
+  },
+  {
+    "objectID": "about.html#my-expertise",
+    "href": "about.html#my-expertise",
+    "title": "About",
+    "section": "My Expertise",
+    "text": "My Expertise\nWith years of experience in consultancy roles, I’ve mastered the art of transforming data into actionable insights. Whether it’s leading as a Data Scientist, steering projects as a Technical Lead, architecting robust solutions, or managing large-scale programs, I bring a strategic and hands-on approach to every challenge. 🛠️"
+  },
+  {
+    "objectID": "about.html#professional-skills",
+    "href": "about.html#professional-skills",
+    "title": "About",
+    "section": "Professional Skills",
+    "text": "Professional Skills\n\nAI Solutions & Large Language Models (LLM): I specialize in crafting and deploying state-of-the-art AI models that not only meet but exceed business expectations, enhancing both operations and customer interactions. 🤖\nData Strategy and Architectural Design: I’m adept at weaving AI into the fabric of business strategies, ensuring a seamless integration that drives growth and innovation. 📊\nProgram Management: My extensive background in managing diverse teams and complex projects ensures that we stay on track, meet deadlines, and achieve our goals with precision. 🎯"
+  },
+  {
+    "objectID": "about.html#current-role",
+    "href": "about.html#current-role",
+    "title": "About",
+    "section": "Current Role",
+    "text": "Current Role\nAs a Delivery Solutions Architect at Databricks, I’m at the forefront of tackling some of the most challenging data problems in the world using our cutting-edge Lakehouse platform. This role is a perfect blend of my technical expertise and strategic acumen, allowing me to help our clients maximize their investments in our technology. 🌐"
+  },
+  {
+    "objectID": "about.html#professional-impact",
+    "href": "about.html#professional-impact",
+    "title": "About",
+    "section": "Professional Impact",
+    "text": "Professional Impact\nMy career is a testament to the power of AI in transforming business landscapes. From enhancing customer support systems with AI-driven insights to architecting data solutions for real-time analytics, my work consistently drives significant improvements across various KPIs. 📈"
+  },
+  {
+    "objectID": "about.html#lets-connect",
+    "href": "about.html#lets-connect",
+    "title": "About",
+    "section": "Let’s Connect",
+    "text": "Let’s Connect\nI’m always excited to connect with fellow tech enthusiasts and professionals who are passionate about making a difference with technology. Feel free to drop me a message on LinkedIn to chat about AI, data science, or anything tech-related. Let’s explore how we can innovate together! 🤝\nThank you for stopping by! I look forward to sharing more insights and stories that inspire and engage you through my work and this blog. Stay tuned for more exciting content! 🌟 Happy reading!"
   },
   {
     "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html",
@@ -205,9 +240,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "AI Blog",
+    "title": "Davide Fornelli",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nInstalling Ollama on Android Using Termux: A Step-by-Step Guide\n\n\n\n\n\n\nllm\n\n\nollama\n\n\nandroid\n\n\n\nUnleash the Power of AI on Your Android Device with Termux: A Comprehensive Guide to Installing Ollama\n\n\n\n\n\nApr 23, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n\n\n\n\n\n\n\n\n\n\nInstalling Ollama on Android Using Termux: A Step-by-Step Guide\n\n\n\n\n\n\nllm\n\n\nollama\n\n\nandroid\n\n\n\nUnleash the Power of AI on Your Android Device with Termux: A Comprehensive Guide to Installing Ollama\n\n\n\n\n\nApr 23, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "temp/notebooks/2021-11-05-read_pdf.html",
