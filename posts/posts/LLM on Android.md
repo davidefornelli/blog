@@ -1,6 +1,7 @@
 ---
 title: "Installing Ollama on Android Using Termux: A Step-by-Step Guide"
 description: "Unleash the Power of AI on Your Android Device with Termux: A Comprehensive Guide to Installing Ollama"
+author: Davide Fornelli
 date: 2024-04-23
 toc: true
 categories:
