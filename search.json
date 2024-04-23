@@ -1,0 +1,219 @@
+[
+  {
+    "objectID": "temp/notebooks/2021-11-05-read_pdf.html",
+    "href": "temp/notebooks/2021-11-05-read_pdf.html",
+    "title": "“Extract text from pdf”",
+    "section": "",
+    "text": "“How to use extract text from a pdf”"
+  },
+  {
+    "objectID": "temp/notebooks/2021-11-05-read_pdf.html#packages",
+    "href": "temp/notebooks/2021-11-05-read_pdf.html#packages",
+    "title": "“Extract text from pdf”",
+    "section": "Packages",
+    "text": "Packages\n\npdfplumber\nUnidecode\n\n\n%pip install pdfplumber Unidecode\n\n\nfrom typing import List\nimport pdfplumber\nfrom unidecode import unidecode\n\n\ndef pdf_parser(\n    filepath: str,\n    x_tolerance=1,\n    y_tolerance=1\n) -&gt; List[str]:\n    texts = []\n    with pdfplumber.open(filepath) as pdf:\n        for page in pdf.pages:\n            texts.append(unidecode(page.extract_text(x_tolerance=x_tolerance, y_tolerance=y_tolerance)))\n    return texts\n\n\npdf_texts = pdf_parser(filepath='my_sample.pdf')\nprint(pdf_texts)"
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html",
+    "href": "temp/notebooks/1986-01-10-notebook.html",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "",
+    "text": "A tutorial of fastpages for Jupyter notebooks."
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#markdown-shortcuts",
+    "href": "temp/notebooks/1986-01-10-notebook.html#markdown-shortcuts",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "Markdown Shortcuts",
+    "text": "Markdown Shortcuts\nA #hide comment at the top of any code cell will hide both the input and output of that cell in your blog post.\nA #hide_input comment at the top of any code cell will only hide the input of that cell.\n\n#hide_input\nprint('The comment #hide_input was used to hide the code that produced this.')\n\nThe comment #hide_input was used to hide the code that produced this.\n\n\nput a #collapse-hide flag at the top of any cell if you want to hide that cell by default, but give the reader the option to show it:\n\n#collapse-hide\nimport pandas as pd\nimport altair as alt\n\nput a #collapse-show flag at the top of any cell if you want to show that cell by default, but give the reader the option to hide it:\n\n#collapse-show\ncars = 'https://vega.github.io/vega-datasets/data/cars.json'\nmovies = 'https://vega.github.io/vega-datasets/data/movies.json'\nsp500 = 'https://vega.github.io/vega-datasets/data/sp500.csv'\nstocks = 'https://vega.github.io/vega-datasets/data/stocks.csv'\nflights = 'https://vega.github.io/vega-datasets/data/flights-5k.json'\n\nplace a #collapse-output flag at the top of any cell if you want to put the output under a collapsable element that is closed by default, but give the reader the option to open it:\n\n#collapse-output\nprint('The comment #collapse-output was used to collapse the output of this cell by default but you can expand it.')\n\nThe comment #collapse-output was used to collapse the output of this cell by default but you can expand it."
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#interactive-charts-with-altair",
+    "href": "temp/notebooks/1986-01-10-notebook.html#interactive-charts-with-altair",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "Interactive Charts With Altair",
+    "text": "Interactive Charts With Altair\nCharts made with Altair remain interactive. Example charts taken from this repo, specifically this notebook.\n\n# hide\ndf = pd.read_json(movies) # load movies data\ndf.columns = [x.replace(' ', '_') for x in df.columns.values]\ngenres = df['Major_Genre'].unique() # get unique field values\ngenres = list(filter(lambda d: d is not None, genres)) # filter out None values\ngenres.sort() # sort alphabetically\n\n\n#hide\nmpaa = ['G', 'PG', 'PG-13', 'R', 'NC-17', 'Not Rated']\n\n\nExample 1: DropDown\n\n# single-value selection over [Major_Genre, MPAA_Rating] pairs\n# use specific hard-wired values as the initial selected values\nselection = alt.selection_single(\n    name='Select',\n    fields=['Major_Genre', 'MPAA_Rating'],\n    init={'Major_Genre': 'Drama', 'MPAA_Rating': 'R'},\n    bind={'Major_Genre': alt.binding_select(options=genres), 'MPAA_Rating': alt.binding_radio(options=mpaa)}\n)\n  \n# scatter plot, modify opacity based on selection\nalt.Chart(df).mark_circle().add_selection(\n    selection\n).encode(\n    x='Rotten_Tomatoes_Rating:Q',\n    y='IMDB_Rating:Q',\n    tooltip='Title:N',\n    opacity=alt.condition(selection, alt.value(0.75), alt.value(0.05))\n)\n\n\n\n\n\n\n\n\nExample 2: Tooltips\n\nalt.Chart(df).mark_circle().add_selection(\n    alt.selection_interval(bind='scales', encodings=['x'])\n).encode(\n    alt.X('Rotten_Tomatoes_Rating', type='quantitative'),\n    alt.Y('IMDB_Rating', type='quantitative', axis=alt.Axis(minExtent=30)),\n#     y=alt.Y('IMDB_Rating:Q', ), # use min extent to stabilize axis title placement\n    tooltip=['Title:N', 'Release_Date:N', 'IMDB_Rating:Q', 'Rotten_Tomatoes_Rating:Q']\n).properties(\n    width=500,\n    height=400\n)\n\n\n\n\n\n\n\n\nExample 3: More Tooltips\n\n# select a point for which to provide details-on-demand\nlabel = alt.selection_single(\n    encodings=['x'], # limit selection to x-axis value\n    on='mouseover',  # select on mouseover events\n    nearest=True,    # select data point nearest the cursor\n    empty='none'     # empty selection includes no data points\n)\n\n# define our base line chart of stock prices\nbase = alt.Chart().mark_line().encode(\n    alt.X('date:T'),\n    alt.Y('price:Q', scale=alt.Scale(type='log')),\n    alt.Color('symbol:N')\n)\n\nalt.layer(\n    base, # base line chart\n    \n    # add a rule mark to serve as a guide line\n    alt.Chart().mark_rule(color='#aaa').encode(\n        x='date:T'\n    ).transform_filter(label),\n    \n    # add circle marks for selected time points, hide unselected points\n    base.mark_circle().encode(\n        opacity=alt.condition(label, alt.value(1), alt.value(0))\n    ).add_selection(label),\n\n    # add white stroked text to provide a legible background for labels\n    base.mark_text(align='left', dx=5, dy=-5, stroke='white', strokeWidth=2).encode(\n        text='price:Q'\n    ).transform_filter(label),\n\n    # add text labels for stock prices\n    base.mark_text(align='left', dx=5, dy=-5).encode(\n        text='price:Q'\n    ).transform_filter(label),\n    \n    data=stocks\n).properties(\n    width=500,\n    height=400\n)"
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#data-tables",
+    "href": "temp/notebooks/1986-01-10-notebook.html#data-tables",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "Data Tables",
+    "text": "Data Tables\nYou can display tables per the usual way in your blog:\n\n# display table with pandas\ndf[['Title', 'Worldwide_Gross', \n    'Production_Budget', 'Distributor', 'MPAA_Rating', 'IMDB_Rating', 'Rotten_Tomatoes_Rating']].head()\n\n\n\n\n\n\n\n\n\nTitle\nWorldwide_Gross\nProduction_Budget\nDistributor\nMPAA_Rating\nIMDB_Rating\nRotten_Tomatoes_Rating\n\n\n\n\n0\nThe Land Girls\n146083.0\n8000000.0\nGramercy\nR\n6.1\nNaN\n\n\n1\nFirst Love, Last Rites\n10876.0\n300000.0\nStrand\nR\n6.9\nNaN\n\n\n2\nI Married a Strange Person\n203134.0\n250000.0\nLionsgate\nNone\n6.8\nNaN\n\n\n3\nLet's Talk About Sex\n373615.0\n300000.0\nFine Line\nNone\nNaN\n13.0\n\n\n4\nSlam\n1087521.0\n1000000.0\nTrimark\nR\n3.4\n62.0"
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#images",
+    "href": "temp/notebooks/1986-01-10-notebook.html#images",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "Images",
+    "text": "Images\n\nLocal Images\nYou can reference local images and they will be copied and rendered on your blog automatically. You can include these with the following markdown syntax:\n\n\n\nRemote Images\nRemote images can be included with the following markdown syntax:\n![](https://image.flaticon.com/icons/svg/36/36686.svg)\n\n\n\nAnimated Gifs\nAnimated Gifs work, too!\n![](https://upload.wikimedia.org/wikipedia/commons/7/71/ChessPawnSpecialMoves.gif)\n\n\n\nCaptions\nYou can include captions with markdown images like this:\n![](https://www.fast.ai/images/fastai_paper/show_batch.png \"Credit: https://www.fast.ai/2020/02/13/fastai-A-Layered-API-for-Deep-Learning/\")"
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#github-flavored-emojis",
+    "href": "temp/notebooks/1986-01-10-notebook.html#github-flavored-emojis",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "GitHub Flavored Emojis",
+    "text": "GitHub Flavored Emojis\nTyping I give this post two :+1:! will render this:\nI give this post two :+1:!"
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#tweetcards",
+    "href": "temp/notebooks/1986-01-10-notebook.html#tweetcards",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "Tweetcards",
+    "text": "Tweetcards\nTyping &gt; twitter: https://twitter.com/jakevdp/status/1204765621767901185?s=20 will render this:\n\ntwitter: https://twitter.com/jakevdp/status/1204765621767901185?s=20"
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#youtube-videos",
+    "href": "temp/notebooks/1986-01-10-notebook.html#youtube-videos",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "Youtube Videos",
+    "text": "Youtube Videos\nTyping &gt; youtube: https://youtu.be/XfoYk_Z5AkI will render this:\n\nyoutube: https://youtu.be/XfoYk_Z5AkI"
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#boxes-callouts",
+    "href": "temp/notebooks/1986-01-10-notebook.html#boxes-callouts",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "Boxes / Callouts",
+    "text": "Boxes / Callouts\nTyping &gt; Warning: There will be no second warning! will render this:\n\nWarning: There will be no second warning!\n\nTyping &gt; Important: Pay attention! It's important. will render this:\n\nImportant: Pay attention! It’s important.\n\nTyping &gt; Tip: This is my tip. will render this:\n\nTip: This is my tip.\n\nTyping &gt; Note: Take note of this. will render this:\n\nNote: Take note of this.\n\nTyping &gt; Note: A doc link to [an example website: fast.ai](https://www.fast.ai/) should also work fine. will render in the docs:\n\nNote: A doc link to an example website: fast.ai should also work fine."
+  },
+  {
+    "objectID": "temp/notebooks/1986-01-10-notebook.html#footnotes",
+    "href": "temp/notebooks/1986-01-10-notebook.html#footnotes",
+    "title": "Fastpages Notebook Blog Post",
+    "section": "Footnotes",
+    "text": "Footnotes\nYou can have footnotes in notebooks, however the syntax is different compared to markdown documents. This guide provides more detail about this syntax, which looks like this:\n{% raw %}For example, here is a footnote {% fn 1 %}.\nAnd another {% fn 2 %}\n{{ 'This is the footnote.' | fndetail: 1 }}\n{{ 'This is the other footnote. You can even have a [link](www.github.com)!' | fndetail: 2 }}{% endraw %}\nFor example, here is a footnote {% fn 1 %}.\nAnd another {% fn 2 %}\n{{ ‘This is the footnote.’ | fndetail: 1 }} {{ ‘This is the other footnote. You can even have a link!’ | fndetail: 2 }}"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "",
+    "text": "Call graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#call-graph",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "",
+    "text": "Call graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configuration",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Configuration",
+    "text": "Configuration\n\nParameters\n\ngist_user = 'davidefornelli'\ngist_chef_id = '1bc116f05d09e598a1a2dcfbb0e2fc22'\ngist_ingredients_id = '5c75b7cdea330d15dcd93adbb08648c3'\ningredients_to_import = [\n    (gist_ingredients_id, 'joking.py')\n]"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#configure-environment",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Configure environment",
+    "text": "Configure environment\n\n%pip install httpimport\n\nRequirement already satisfied: httpimport in /home/daforne/repos/github/davidefornelli/cookbook/.venv/lib/python3.7/site-packages (0.7.2)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nImport chef\n\nimport httpimport\n\nwith httpimport.remote_repo(\n    ['chef'],\n    f\"https://gist.githubusercontent.com/{gist_user}/{gist_chef_id}/raw\"\n):\n    import chef\n\n\n\n\nImport ingredients\n\ndef ingredients_import(ingredients):\n    for ingredient in ingredients:\n        mod, package = chef.process_gist_ingredient(\n            gist_id=ingredient[0],\n            gist_file=ingredient[1],\n            gist_user=gist_user\n        )\n        globals()[package] = mod\n\n\ningredients_import(ingredients=ingredients_to_import)\n\nCollecting pyjokes\n  Using cached pyjokes-0.6.0-py2.py3-none-any.whl (26 kB)\nInstalling collected packages: pyjokes\nSuccessfully installed pyjokes-0.6.0"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
+    "href": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html#tell-me-a-joke",
+    "title": "Chef Recipe | How to cook a joke",
+    "section": "Tell me a joke",
+    "text": "Tell me a joke\n\njoking.tell_me_a_joke()\n\nHow many programmers does it take to kill a cockroach? Two: one holds, the other installs Windows on it."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "AI Blog",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nPurview | Custom process\n\n\n\n\n\n\npurview\n\n\npython\n\n\njupyter\n\n\n\nHow to create a custom Purview dataset and process with python\n\n\n\n\n\nDec 14, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | How to cook a joke\n\n\n\n\n\n\nrecipe\n\n\npython\n\n\njupyter\n\n\n\nA simple example to learn how to use Chef and it’s ingredients\n\n\n\n\n\nNov 18, 2021\n\n\n\n\n\n\n\n\n\n\n\n\nChef Recipe | Extractive summarization with Azure Text Analytics\n\n\n\n\n\n\nrecipe\n\n\nazuretextanalytics\n\n\nazure\n\n\npython\n\n\njupyter\n\n\n\nUse Chef to create summaries with Azure\n\n\n\n\n\nNov 11, 2021\n\n\nDavide Fornelli\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog\nThis is a blog"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html",
+    "href": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html",
+    "title": "Chef Recipe | Extractive summarization with Azure Text Analytics",
+    "section": "",
+    "text": "Call graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#call-graph",
+    "href": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#call-graph",
+    "title": "Chef Recipe | Extractive summarization with Azure Text Analytics",
+    "section": "",
+    "text": "Call graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#configuration",
+    "href": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#configuration",
+    "title": "Chef Recipe | Extractive summarization with Azure Text Analytics",
+    "section": "Configuration",
+    "text": "Configuration\nPrerequisites: - Add the .env file in the same folder of the notebook\n\nParameters\n\ngist_user = 'davidefornelli'\ngist_chef_id = '1bc116f05d09e598a1a2dcfbb0e2fc22'\ngist_ingredients_id = '5c75b7cdea330d15dcd93adbb08648c3'\ningredients_to_import = [\n    (gist_ingredients_id, 'az_cs_summarization.py')\n]\n\ntexts = [\n    '''\n        A computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically. Modern computers can perform generic sets of operations known as programs. These programs enable computers to perform a wide range of tasks. A computer system is a \"complete\" computer that includes the hardware, operating system (main software), and peripheral equipment needed and used for \"full\" operation. This term may also refer to a group of computers that are linked and function together, such as a computer network or computer cluster.\n        A broad range of industrial and consumer products use computers as control systems. Simple special-purpose devices like microwave ovens and remote controls are included, as are factory devices like industrial robots and computer-aided design, as well as general-purpose devices like personal computers and mobile devices like smartphones. Computers power the Internet, which links hundreds of millions of other computers and users.\n        Early computers were meant to be used only for calculations. Simple manual instruments like the abacus have aided people in doing calculations since ancient times. Early in the Industrial Revolution, some mechanical devices were built to automate long tedious tasks, such as guiding patterns for looms. More sophisticated electrical machines did specialized analog calculations in the early 20th century. The first digital electronic calculating machines were developed during World War II. The first semiconductor transistors in the late 1940s were followed by the silicon-based MOSFET (MOS transistor) and monolithic integrated circuit (IC) chip technologies in the late 1950s, leading to the microprocessor and the microcomputer revolution in the 1970s. The speed, power and versatility of computers have been increasing dramatically ever since then, with transistor counts increasing at a rapid pace (as predicted by Moore's law), leading to the Digital Revolution during the late 20th to early 21st centuries.\n        Conventionally, a modern computer consists of at least one processing element, typically a central processing unit (CPU) in the form of a microprocessor, along with some type of computer memory, typically semiconductor memory chips. The processing element carries out arithmetic and logical operations, and a sequencing and control unit can change the order of operations in response to stored information. Peripheral devices include input devices (keyboards, mice, joystick, etc.), output devices (monitor screens, printers, etc.), and input/output devices that perform both functions (e.g., the 2000s-era touchscreen). Peripheral devices allow information to be retrieved from an external source and they enable the result of operations to be saved and retrieved.\n    '''\n]"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#configure-environment",
+    "href": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#configure-environment",
+    "title": "Chef Recipe | Extractive summarization with Azure Text Analytics",
+    "section": "Configure environment",
+    "text": "Configure environment\n\n%pip install httpimport python-dotenv\n\nRequirement already satisfied: httpimport in /home/daforne/repos/github/davidefornelli/cookbook/.venv/lib/python3.7/site-packages (0.7.2)\nRequirement already satisfied: python-dotenv in /home/daforne/repos/github/davidefornelli/cookbook/.venv/lib/python3.7/site-packages (0.19.2)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nImport chef\n\nimport httpimport\n\nwith httpimport.remote_repo(\n    ['chef'],\n    f\"https://gist.githubusercontent.com/{gist_user}/{gist_chef_id}/raw\"\n):\n    import chef\n\n\n\n\nImport ingredients\n\ndef ingredients_import(ingredients):\n    for ingredient in ingredients:\n        mod, package = chef.process_gist_ingredient(\n            gist_id=ingredient[0],\n            gist_file=ingredient[1],\n            gist_user=gist_user\n        )\n        globals()[package] = mod\n\n\ningredients_import(ingredients=ingredients_to_import)"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#extract-summaries",
+    "href": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#extract-summaries",
+    "title": "Chef Recipe | Extractive summarization with Azure Text Analytics",
+    "section": "Extract summaries",
+    "text": "Extract summaries\n\nimport os\nfrom dotenv import load_dotenv\nload_dotenv()\n\n\n# Apply summarization\nsummary_text = az_cs_summarization.summarize(\n    texts=texts,\n    cs_endpoint=os.environ['CS_TEXTANALYTICS_ENDPOINT'],\n    cs_key=os.environ['CS_TEXTANALYTICS_KEY'],\n    language='en'\n)"
+  },
+  {
+    "objectID": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#results",
+    "href": "posts/notebooks/2021-11-11-nb_chef_recipe_cs_summarization.html#results",
+    "title": "Chef Recipe | Extractive summarization with Azure Text Analytics",
+    "section": "Results",
+    "text": "Results\n\nfor sx in summary_text:\n    for s in sx.sentences:\n        print(s.text)\n\nA computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically.\nThese programs enable computers to perform a wide range of tasks.\nA broad range of industrial and consumer products use computers as control systems."
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html",
+    "title": "Purview | Custom process",
+    "section": "",
+    "text": "%pip install pyapacheatlas\n\nCollecting pyapacheatlas\n  Downloading pyapacheatlas-0.10.0-py3-none-any.whl (68 kB)\n     |████████████████████████████████| 68 kB 1.9 MB/s             \nCollecting openpyxl&gt;=3.0\n  Downloading openpyxl-3.0.9-py2.py3-none-any.whl (242 kB)\n     |████████████████████████████████| 242 kB 3.8 MB/s            \nRequirement already satisfied: requests&gt;=2.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from pyapacheatlas) (2.26.0)\nCollecting et-xmlfile\n  Using cached et_xmlfile-1.1.0-py3-none-any.whl (4.7 kB)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2021.10.8)\nRequirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2.0.7)\nRequirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (1.26.7)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (3.3)\nInstalling collected packages: et-xmlfile, openpyxl, pyapacheatlas\nSuccessfully installed et-xmlfile-1.1.0 openpyxl-3.0.9 pyapacheatlas-0.10.0\nNote: you may need to restart the kernel to use updated packages."
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#prerequisites",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#prerequisites",
+    "title": "Purview | Custom process",
+    "section": "",
+    "text": "%pip install pyapacheatlas\n\nCollecting pyapacheatlas\n  Downloading pyapacheatlas-0.10.0-py3-none-any.whl (68 kB)\n     |████████████████████████████████| 68 kB 1.9 MB/s             \nCollecting openpyxl&gt;=3.0\n  Downloading openpyxl-3.0.9-py2.py3-none-any.whl (242 kB)\n     |████████████████████████████████| 242 kB 3.8 MB/s            \nRequirement already satisfied: requests&gt;=2.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from pyapacheatlas) (2.26.0)\nCollecting et-xmlfile\n  Using cached et_xmlfile-1.1.0-py3-none-any.whl (4.7 kB)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2021.10.8)\nRequirement already satisfied: charset-normalizer~=2.0.0 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (2.0.7)\nRequirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (1.26.7)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /home/daforne/repos/github/davidefornelli/blog/.venv/lib/python3.7/site-packages (from requests&gt;=2.0-&gt;pyapacheatlas) (3.3)\nInstalling collected packages: et-xmlfile, openpyxl, pyapacheatlas\nSuccessfully installed et-xmlfile-1.1.0 openpyxl-3.0.9 pyapacheatlas-0.10.0\nNote: you may need to restart the kernel to use updated packages."
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#code",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#code",
+    "title": "Purview | Custom process",
+    "section": "Code",
+    "text": "Code\n\nImport\n\nfrom pyapacheatlas.auth import ServicePrincipalAuthentication\nfrom pyapacheatlas.core.client import PurviewClient\nfrom pyapacheatlas.core.entity import AtlasEntity\nfrom pyapacheatlas.core.typedef import EntityTypeDef\nfrom pyapacheatlas.core.util import GuidTracker\nfrom pyapacheatlas.core.typedef import ChildEndDef\nfrom pyapacheatlas.core.typedef import RelationshipTypeDef\nfrom pyapacheatlas.core.typedef import ParentEndDef\nfrom pyapacheatlas.core.typedef import Cardinality\nfrom pyapacheatlas.core.typedef import AtlasAttributeDef\nfrom pyapacheatlas.core import AtlasProcess\n\n\n\nSettings\n\ntenant_id = \"\"\nclient_id = \"\"\nclient_secret = \"\"\npurview_name = \"\"\n\n\n\nClients\n\natlas_sp = ServicePrincipalAuthentication(\n    tenant_id=tenant_id,\n    client_id=client_id,\n    client_secret=client_secret\n)\n\n\npurview_client = PurviewClient(\n    account_name=purview_name,\n    authentication=atlas_sp\n)\n\n\n\nEntities\n\nguid_tracker = GuidTracker()\n\n\ncustom_dataset = purview_client.upload_typedefs(\n    entityDefs=[\n        EntityTypeDef(\n            name=\"myCustomDataSet\",\n            superTypes=[\"DataSet\"]\n        )\n    ],\n    force_update=True\n)\n\n\nmyCustomDataset01 = AtlasEntity(\n    name=\"myCustomDataset01\",\n    typeName=\"myCustomDataSet\",\n    qualified_name=\"pyapacheatlas://mycustomdataset01\",\n    guid=guid_tracker.get_guid()\n)\nmyCustomDataset02 = AtlasEntity(\n    name=\"myCustomDataset02\",\n    typeName=\"myCustomDataSet\",\n    qualified_name=\"pyapacheatlas://mycustomdataset02\",\n    guid=guid_tracker.get_guid()\n)\n\n\nmyCustomProcess01 = AtlasProcess(\n    name=\"myCustomProcess01\",\n    typeName=\"Process\",\n    qualified_name=\"pyapacheatlas://mycustomprocess01\",\n    inputs=[myCustomDataset01],\n    outputs=[myCustomDataset02],\n    guid=guid_tracker.get_guid()\n)\n\n\nresults = purview_client.upload_entities(\n    batch=[myCustomDataset01, myCustomDataset02, myCustomProcess01]\n)"
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#result",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#result",
+    "title": "Purview | Custom process",
+    "section": "Result",
+    "text": "Result\n\n\n\nCall graph"
+  },
+  {
+    "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html#utils",
+    "href": "posts/notebooks/2021-12-14-nb_purview_01.html#utils",
+    "title": "Purview | Custom process",
+    "section": "Utils",
+    "text": "Utils\n\nDelete entities\n\npurview_client.delete_typedefs(\n    entityDefs=[\n        {\"name\": \"myCustomProcess\"},\n    ]\n)"
+  },
+  {
+    "objectID": "temp/notebooks/2021-11-04-azure_summarization01 copy.html",
+    "href": "temp/notebooks/2021-11-04-azure_summarization01 copy.html",
+    "title": "“Azure Text Summarization”",
+    "section": "",
+    "text": "“How to use Azure Text Summarization with PDF, TXT and simple text”\n\n\ntoc: false\nbranch: master\nbadges: true\ncomments: true\ncategories: [azure, cognitive services, summarization]\nhide: true\nsearch_exclude: false\nmetadata_key1: metadata_value1\nmetadata_key2: metadata_value2\n\n\n%pip install azure-ai-textanalytics pdfplumber Unidecode python-dotenv\n\n\nfrom typing import List\nimport pdfplumber\nfrom azure.core.credentials import AzureKeyCredential\nfrom azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.ai.textanalytics import ExtractSummaryAction\nfrom dotenv import load_dotenv\nimport os\nfrom unidecode import unidecode\n\n\nDOTENV_FILEPATH = ''\nCS_ENDPOINT = os.getenv('CV_ENDPOINT')\nCS_KEY = os.getenv('CV_KEY')\n\n\n\n# https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/textanalytics/azure-ai-textanalytics/samples/sample_extract_summary.py\n\ndef pdf_parser(\n    filepath: str,\n    x_tolerance=1,\n    y_tolerance=1\n) -&gt; List[str]:\n    texts = []\n\n    with pdfplumber.open(filepath) as pdf:\n        for page in pdf.pages:\n            texts.append(unidecode(page.extract_text(x_tolerance=x_tolerance, y_tolerance=y_tolerance)))\n    return texts\n\n\ndef split_in_chunks(lst, chunk_size: int):\n    chunked_list = list()\n    for i in range(0, len(lst), chunk_size):\n        chunked_list.append(lst[i:i+chunk_size])\n    return chunked_list\n\n\ndef az_summary(\n    texts: List[str],\n    cs_endpoint: str,\n    cs_key: str,\n    language: str\n):\n    az_doc = []\n    for i in range(len(texts)):\n        doc = {\"id\": i, \"language\": language, \"text\": texts[i]}\n        az_doc.append(doc)\n        break\n\n    text_analytics_client = TextAnalyticsClient(\n        endpoint=cs_endpoint,\n        credential=AzureKeyCredential(cs_key),\n    )\n\n    poller = text_analytics_client.begin_analyze_actions(\n        documents=texts,\n        actions=[\n            ExtractSummaryAction(order_by='rank'),\n        ],\n    )\n\n    extract_summary_results = []\n\n    document_results = poller.result()\n    for result in document_results:\n        for ex in result:\n        # print(result[0])\n            if not ex['is_error']:\n                extract_summary_results.append(ex)\n    return extract_summary_results\n\n\ndef summarize(summaries, thr=0):\n    sentences = []\n    for sr in summaries:\n        for sentence in sr.sentences:\n            if sentence.rank_score &gt;= thr:\n                sentences.append(sentence.text)\n    sentences = list(set(sentences))\n    return sentences\n\n\ndef summarize_pdf(\n    filepath: str,\n    cs_endpoint: str,\n    cs_key: str,\n    language: str,\n    thr=0\n):\n    pdf_text = pdf_parser(filepath=filepath)\n    chunks = split_in_chunks(\n        lst=pdf_text,\n        chunk_size=25\n    )\n    summaries = []\n    for texts in chunks:\n        st = az_summary(\n            texts=texts,\n            cs_endpoint=cs_endpoint,\n            cs_key=cs_key,\n            language=language\n        )\n        summaries.extend(st)\n    \n    sentences = summarize(summaries, thr)\n    return sentences\n\n\ndef summarize_txt(\n    filepath: str,\n    cs_endpoint: str,\n    cs_key: str,\n    language: str,\n    thr=0\n):\n    with open(filepath, 'r', encoding='utf-8') as fh:\n        num_list = fh.read()\n    summary = az_summary(\n        texts=[num_list],\n        cs_endpoint=cs_endpoint,\n        cs_key=cs_key,\n        language=language\n    )\n    sentences = summarize(summary, thr)\n    return sentences\n\n\nload_dotenv(DOTENV_FILEPATH)\n\n\nsummary_pdf = summarize_pdf(\n    filepath='my_sample.pdf',\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_pdf)\n\n\nsummary_txt = summarize_txt(\n    filepath='my_sample.txt',\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_txt)\n\n\nsummary_text = az_summary(\n    texts=[\"\"\"My sample text\"\"\"],\n    cs_endpoint=CS_ENDPOINT,\n    cs_key=CS_KEY,\n    language='en',\n    thr=0.5\n)\nprint(summary_text)"
+  }
+]
