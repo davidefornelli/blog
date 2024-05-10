@@ -1,8 +1,8 @@
 ---
-title: "Installing Ollama on Android Using Termux: A Step-by-Step Guide"
-description: "Unleash the Power of AI on Your Android Device with Termux: A Comprehensive Guide to Installing Ollama"
+title: "Running LLMs on Android: A Step-by-Step Guide"
+description: "Unleash the Power of LLMs on Your Android Device with Termux and Ollama"
 author: Davide Fornelli
-date: 2024-04-23
+date: 2024-05-10
 toc: true
 categories:
   - llm
@@ -75,8 +75,13 @@ In the new pane, run a specific Ollama model. For example, to run the Gemma 2B m
 ollama run gemma:2b
 ```
 
+Depending on your device, you can run also run phi3:
+```bash
+ollama run phi3
+```
+
 ### Step 12: Test the Model
 Once the model is running, you can interact with it directly from the terminal. Enter prompts and observe the model's responses, effectively using your Android device as a powerful AI tool.
 
 ### Conclusion
-This tutorial provides a foundation for exploring further applications of large language models on mobile devices, opening up possibilities for mobile-based AI development and experimentation.
+This tutorial provides a foundation for exploring further applications of LLMs on mobile devices, opening up possibilities for mobile-based AI development and experimentation.
