@@ -81,7 +81,7 @@
     "href": "posts/posts/LLM on Android.html",
     "title": "Installing Ollama on Android Using Termux: A Step-by-Step Guide",
     "section": "",
-    "text": "In this blog post, we’ll explore how to install and run the Ollama language model on an Android device using Termux, a powerful terminal emulator. This tutorial is designed for users who wish to leverage the capabilities of large language models directly on their mobile devices without the need for a desktop environment.\n\nStep 1: Install F-Droid\nF-Droid is an installable catalogue of FOSS (Free and Open Source Software) applications for the Android platform. Download and install the F-Droid app from https://f-droid.org/.\n\n\nStep 2: Install Termux\nOnce F-Droid is installed, open it and search for Termux. Install Termux, which will serve as your Linux environment on Android.\n\n\nStep 3: Update and Upgrade Packages\nOpen Termux and update its package repository to ensure you have access to the latest software versions:\npkg update\npkg upgrade\n\n\nStep 4: Install Proot-Distro\nProot-Distro allows you to run different Linux distributions within Termux. Install it using:\npkg install proot-distro\nFor more details, visit the Proot-Distro GitHub page.\n\n\nStep 5: Login to a Linux Distribution\nFor this tutorial, we will use Debian. Log in to your Debian environment with:\npd login debian\n\n\nStep 6: Install Tmux\nTmux is a terminal multiplexer that allows you to run multiple terminal sessions simultaneously:\napt update\napt upgrade\napt install tmux\n\n\nStep 7: Install Ollama\nWithin the Debian environment, download and install Ollama:\ncurl -fsSL https://ollama.com/install.sh | sh\nThis script installs Ollama and its dependencies.\n\n\nStep 8: Create a New Tmux Session\nStart a new tmux session dedicated to running Ollama:\ntmux new -s llm\n\n\nStep 9: Run Ollama Server\nIn the tmux session, start the Ollama server:\nollama serve\n\n\nStep 10: Create a New Pane in Tmux\nSplit the current window into two panes by pressing Ctrl+b \".\n\n\nStep 11: Run an Ollama Model\nIn the new pane, run a specific Ollama model. For example, to run the Gemma 2B model:\nollama run gemma:2b\n\n\nStep 12: Test the Model\nOnce the model is running, you can interact with it directly from the terminal. Enter prompts and observe the model’s responses, effectively using your Android device as a powerful AI tool.\n\n\nConclusion\nBy following these steps, you’ve successfully set up and run Ollama on your Android device using Termux. This setup not only demonstrates the flexibility of Android as a platform for running sophisticated software but also highlights how mobile devices can be used for advanced computing tasks typically reserved for desktop environments.\nThis tutorial provides a foundation for exploring further applications of large language models on mobile devices, opening up possibilities for mobile-based AI development and experimentation."
+    "text": "In this blog post, we’ll explore how to install and run the Ollama language model on an Android device using Termux, a powerful terminal emulator. This tutorial is designed for users who wish to leverage the capabilities of large language models directly on their mobile devices without the need for a desktop environment.\n\nStep 1: Install F-Droid\nF-Droid is an installable catalogue of FOSS (Free and Open Source Software) applications for the Android platform. Download and install the F-Droid app from https://f-droid.org/.\n\n\nStep 2: Install Termux\nOnce F-Droid is installed, open it and search for Termux. Install Termux, which will serve as your Linux environment on Android.\n\n\nStep 3: Update and Upgrade Packages\nOpen Termux and update its package repository to ensure you have access to the latest software versions:\npkg update\npkg upgrade\n\n\nStep 4: Install Proot-Distro\nProot-Distro allows you to run different Linux distributions within Termux. Install it using:\npkg install proot-distro\nFor more details, visit the Proot-Distro GitHub page.\n\n\nStep 5: Login to a Linux Distribution\nFor this tutorial, we will use Debian. Log in to your Debian environment with:\npd login debian\n\n\nStep 6: Install Tmux\nTmux is a terminal multiplexer that allows you to run multiple terminal sessions simultaneously:\napt update\napt upgrade\napt install tmux\n\n\nStep 7: Install Ollama\nWithin the Debian environment, download and install Ollama:\ncurl -fsSL https://ollama.com/install.sh | sh\nThis script installs Ollama and its dependencies.\n\n\nStep 8: Create a New Tmux Session\nStart a new tmux session dedicated to running Ollama:\ntmux new -s llm\n\n\nStep 9: Run Ollama Server\nIn the tmux session, start the Ollama server:\nollama serve\n\n\nStep 10: Create a New Pane in Tmux\nSplit the current window into two panes by pressing Ctrl+b \".\n\n\nStep 11: Run an Ollama Model\nIn the new pane, run a specific Ollama model. For example, to run the Gemma 2B model:\nollama run gemma:2b\n\n\nStep 12: Test the Model\nOnce the model is running, you can interact with it directly from the terminal. Enter prompts and observe the model’s responses, effectively using your Android device as a powerful AI tool.\n\n\nConclusion\nThis tutorial provides a foundation for exploring further applications of large language models on mobile devices, opening up possibilities for mobile-based AI development and experimentation."
   },
   {
     "objectID": "posts/notebooks/2021-11-18-nb_chef_recipe_jokes.html",
@@ -123,42 +123,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Hello! I’m Davide Fornelli, your go-to Data & AI Strategist and Technical Leader, currently enjoying the vibrant city of Munich, Bavaria, Germany. 🌍 My professional journey is fueled by a deep passion for unraveling complex data puzzles and leveraging the power of AI to revolutionize how businesses operate. 🚀"
-  },
-  {
-    "objectID": "about.html#my-expertise",
-    "href": "about.html#my-expertise",
-    "title": "About",
-    "section": "My Expertise",
-    "text": "My Expertise\nWith years of experience in consultancy roles, I’ve mastered the art of transforming data into actionable insights. Whether it’s leading as a Data Scientist, steering projects as a Technical Lead, architecting robust solutions, or managing large-scale programs, I bring a strategic and hands-on approach to every challenge. 🛠️"
-  },
-  {
-    "objectID": "about.html#professional-skills",
-    "href": "about.html#professional-skills",
-    "title": "About",
-    "section": "Professional Skills",
-    "text": "Professional Skills\n\nAI Solutions & Large Language Models (LLM): I specialize in crafting and deploying state-of-the-art AI models that not only meet but exceed business expectations, enhancing both operations and customer interactions. 🤖\nData Strategy and Architectural Design: I’m adept at weaving AI into the fabric of business strategies, ensuring a seamless integration that drives growth and innovation. 📊\nProgram Management: My extensive background in managing diverse teams and complex projects ensures that we stay on track, meet deadlines, and achieve our goals with precision. 🎯"
-  },
-  {
-    "objectID": "about.html#current-role",
-    "href": "about.html#current-role",
-    "title": "About",
-    "section": "Current Role",
-    "text": "Current Role\nAs a Delivery Solutions Architect at Databricks, I’m at the forefront of tackling some of the most challenging data problems in the world using our cutting-edge Lakehouse platform. This role is a perfect blend of my technical expertise and strategic acumen, allowing me to help our clients maximize their investments in our technology. 🌐"
-  },
-  {
-    "objectID": "about.html#professional-impact",
-    "href": "about.html#professional-impact",
-    "title": "About",
-    "section": "Professional Impact",
-    "text": "Professional Impact\nMy career is a testament to the power of AI in transforming business landscapes. From enhancing customer support systems with AI-driven insights to architecting data solutions for real-time analytics, my work consistently drives significant improvements across various KPIs. 📈"
-  },
-  {
-    "objectID": "about.html#lets-connect",
-    "href": "about.html#lets-connect",
-    "title": "About",
-    "section": "Let’s Connect",
-    "text": "Let’s Connect\nI’m always excited to connect with fellow tech enthusiasts and professionals who are passionate about making a difference with technology. Feel free to drop me a message on LinkedIn to chat about AI, data science, or anything tech-related. Let’s explore how we can innovate together! 🤝\nThank you for stopping by! I look forward to sharing more insights and stories that inspire and engage you through my work and this blog. Stay tuned for more exciting content! 🌟 Happy reading!"
+    "text": "Hello there and thank you for visiting my blog!\nI’m Davide Fornelli, an experienced technical leader currently based in Munich, Germany. My expertise revolves around leveraging AI and data science to transform businesses. I enjoy designing and implementing state-of-the-art machine learning models, driving data strategy and integration, and leading ambitious projects to successful fruition. With a strong background in AI solutions and large language models, I’m always ready to tackle complex data challenges and devise innovative solutions.\nCurrently, I’m making a difference as a Delivery Solutions Architect at Databricks, engaging daily in solving some of the most challenging data problems in the world."
   },
   {
     "objectID": "posts/notebooks/2021-12-14-nb_purview_01.html",
