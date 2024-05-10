@@ -79,6 +79,4 @@ ollama run gemma:2b
 Once the model is running, you can interact with it directly from the terminal. Enter prompts and observe the model's responses, effectively using your Android device as a powerful AI tool.
 
 ### Conclusion
-By following these steps, you've successfully set up and run Ollama on your Android device using Termux. This setup not only demonstrates the flexibility of Android as a platform for running sophisticated software but also highlights how mobile devices can be used for advanced computing tasks typically reserved for desktop environments.
-
 This tutorial provides a foundation for exploring further applications of large language models on mobile devices, opening up possibilities for mobile-based AI development and experimentation.
