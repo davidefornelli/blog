@@ -31,6 +31,11 @@ Proot-Distro allows you to run different Linux distributions within Termux. Inst
 ```bash
 pkg install proot-distro
 ```
+
+```bash
+pd install debian
+```
+
 For more details, visit the [Proot-Distro GitHub page](https://github.com/termux/proot-distro).
 
 ### Step 5: Login to a Linux Distribution
